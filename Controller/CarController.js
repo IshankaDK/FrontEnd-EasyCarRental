@@ -20,7 +20,7 @@ $("#btnCarAdd").click(function () {
 
     $.ajax({
         method: "POST",
-        url: "http://localhost:8080/EasyCarRental_war/api/car",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car",
         contentType: 'application/json',
         async: true,
         data: JSON.stringify({
@@ -72,7 +72,7 @@ $("#btnCarUpdate").click(function () {
 
     $.ajax({
         method: "PUT",
-        url: "http://localhost:8080/EasyCarRental_war/api/car",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car",
         contentType: 'application/json',
         async: true,
         data: JSON.stringify({
@@ -111,7 +111,7 @@ $("#btnCarDelete").click(function () {
     if (option) {
         $.ajax({
             method: "DELETE",
-            url: "http://localhost:8080/EasyCarRental_war/api/car",
+            url: "http://localhost:8080/EasyCarRental_war_exploded/api/car",
             contentType: 'application/json',
             async: true,
             data: JSON.stringify({
@@ -133,7 +133,7 @@ $("#btnCarDelete").click(function () {
 function getAllCars() {
     $.ajax({
         method: "GET",
-        url: "http://localhost:8080/EasyCarRental_war/api/car",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car",
         contentType: 'application/json',
         async: true,
         success: function (data) {
