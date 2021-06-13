@@ -1,0 +1,183 @@
+<!--/**-->
+<!--* @author ishanka on 6/13/21 at 7:42 PM-->
+<!--* @since 0.0.1-->
+<!--*/-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assests/bootsrap/css/bootstrap.min.css">
+</head>
+<body>
+
+<section class="container-fluid">
+    <h1>Car Manager</h1>
+    <div class="row mt-3 p-3">
+        <div class="col-xl-5 col-lg-6">
+            <div class="bg-white card">
+                <div class="bg-danger card-header text-white" style="font-size: 25px">
+                    Car Details
+                </div>
+                <div class="card-body bg-white text-dark">
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-6 ">
+                            <lable>Car ID:</lable>
+                            <input type="text" id="txtCarId" class="form-control">
+                            <span class="control-error" id="lblcarid"></span>
+                        </div>
+                        <div class="form-group col-6 ">
+                            <lable>Car Brand:</lable>
+                            <input type="text" id="txtBrand" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-5 ">
+                            <lable>Car Type:</lable>
+                            <select class="form-control" id="cmbCarType">
+                                <option selected="selected" disabled="disabled">-Select Type-</option>
+                                <span class="control-error" id="lblcartype"></span>
+                            </select>
+                        </div>
+                        <div class="form-group col-7">
+                            <lable>No Of Passengers:</lable>
+                            <select class="form-control" id="cmbNoOfPassenger">
+                                <option selected="selected" disabled="disabled">-Select No Of Passengers-</option>
+                                <span class="control-error" id="lblnoofpassengers"></span>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-7">
+                            <lable>Transmission Type:</lable>
+                            <select class="form-control" id="cmbTransmissionType">
+                                <option selected="selected" disabled="disabled">-Select Transmission Type-</option>
+                                <span class="control-error" id="lbltransmissiontype"></span>
+                            </select>
+                        </div>
+                        <div class="form-group col-5">
+                            <lable>Fuel Type:</lable>
+                            <select class="form-control" id="cmbFuelType">
+                                <option selected="selected" disabled="disabled">-Select Fuel Type-</option>
+                                <span class="control-error" id="lblfueltype"></span>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-6">
+                            <lable>Color:</lable>
+                            <input type="text" id="txtColor" class="form-control">
+                        </div>
+                        <div class="form-group col-6">
+                            <lable>Registration No:</lable>
+                            <input type="text" id="txtRegNo" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-7 col-lg-6">
+            <div class="bg-white card">
+                <div class="bg-danger card-header text-white" style="font-size: 25px">
+                    Rates & Availability
+                </div>
+                <div class="card-body bg-white text-dark">
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-6 ">
+                            <lable>Daily Rate(Rs):</lable>
+                            <input type="number" min="0" id="txtDailyRate" class="form-control">
+                        </div>
+                        <div class="form-group col-6 ">
+                            <div class="col-12">
+                                <lable>Free Mileage For A Day(KM):</lable>
+                            </div>
+                            <div class="col-12">
+                                <span class="text-danger" style="font-size: 30px" id="lbnFreeForDay">
+                                    100
+                                </span>
+                                KM
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-6 ">
+                            <lable>Monthly Rate(Rs):</lable>
+                            <input type="number" min="0" id="txtMonthlyRate" class="form-control">
+                        </div>
+                        <div class="form-group col-6 ">
+                            <div class="col-12">
+                                <lable>Free Mileage For A Month(KM):</lable>
+                            </div>
+                            <div class="col-12">
+                                <span class="text-danger" style="font-size: 30px" id="lblFreeForMonth">
+                                    2400
+                                </span>
+                                KM
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-6">
+                            <lable>Cost For Extra Kilometer(Rs):</lable>
+                            <input type="number" min="0" id="txtCostForExtraKM" class="form-control">
+                        </div>
+                        <div class="form-group col-6">
+                            <lable>Loss Damage Waiver(Rs):</lable>
+                            <select class="form-control" id="cmbLossDamage">
+                                <option selected="selected" disabled="disabled">-Select Loss Damage Waiver-</option>
+                                <span class="control-error" id="lbllossdamage"></span>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-6">
+                            <lable>Car Status:</lable>
+                            <select class="form-control" id="cmbCarStatus">
+                                <option selected="selected" disabled="disabled">-Select Car Status-</option>
+                                <span class="control-error" id="lblcarstatus"></span>
+                            </select>
+                        </div>
+                        <div class="form-group col-6 mt-4 px-4">
+                            <button type="button" class="btn btn-outline-success fw-bold" id="btnCarAdd">Add Car</button>
+                            <button type="button" class="btn btn-outline-warning fw-bold" id="btnCarUpdate">Update Car</button>
+                            <button type="button" class="btn btn-outline-danger fw-bold" id="btnCarDelete">Delete Car</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h6 class="text-danger">* Free Km for Day: 100Km and Free Km for Month: 2400km for any Car</h6>
+    <table class="table table-hover border mt-3 p-3">
+        <thead class="bg-danger text-white">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Car Type</th>
+            <th scope="col">Passengers</th>
+            <th scope="col">Trans Type</th>
+            <th scope="col">Fuel Type</th>
+            <th scope="col">Color</th>
+            <th scope="col">Reg No</th>
+            <th scope="col">Daily Rate</th>
+<!--            <th scope="col">Free KM Day</th>-->
+            <th scope="col">Monthly Rate</th>
+<!--            <th scope="col">Free KM Month</th>-->
+            <th scope="col">Cost Extra KM</th>
+            <th scope="col">Loss Damage</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody class="bg-secondary text-white" id="tblCar">
+        </tbody>
+    </table>
+</section>
+
+<script src="assests/jquery-3.6.0.js"></script>
+<script src="assests/bootsrap/js/bootstrap.min.js"></script>
+<script src="Controller/CarController.js"></script>
+</body>
+</html>
