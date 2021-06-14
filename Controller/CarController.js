@@ -16,7 +16,7 @@ $("#btnCarAdd").click(function () {
     let freeForMonth = $("#lblFreeForMonth").text();
     let forExtraCost = $("#txtCostForExtraKM").val();
     let lossDamage = $("#cmbLossDamage :selected").val();
-    let carStatus = $("#txtCarStatus").val();
+    let carStatus = $("#cmbCarStatus :selected").val();
 
     $.ajax({
         method: "POST",
@@ -68,7 +68,7 @@ $("#btnCarUpdate").click(function () {
     let freeForMonth = $("#lblFreeForMonth").text();
     let forExtraCost = $("#txtCostForExtraKM").val();
     let lossDamage = $("#cmbLossDamage :selected").val();
-    let carStatus = $("#txtCarStatus").val();
+    let carStatus = $("#cmbCarStatus :selected").val();
 
     $.ajax({
         method: "PUT",
