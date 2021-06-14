@@ -137,11 +137,11 @@ function getAllCars() {
         contentType: 'application/json',
         async: true,
         success: function (data) {
-            loadAllCustomersToTable(data);
+            loadAllCarsToTable(data);
         }
     });
 }
-function loadAllCustomersToTable(data) {
+function loadAllCarsToTable(data) {
     let allCars = data;
     console.log(allCars);
     $("#tblCar").empty();
@@ -203,7 +203,7 @@ function loadComboBoxes() {
     $($('#cmbNoOfPassenger').children().get(0)).attr('disabled', 'true');
     $('#cmbNoOfPassenger').append("<option>2</option>");
     $('#cmbNoOfPassenger').append("<option>4</option>");
-    $('#cmbNoOfPassenger').append("<option>6</option>");
+    $('#cmbNoOfPassenger').append("<option>5</option>");
 
     // Transmission Type
     $('#cmbTransmissionType').children().remove();

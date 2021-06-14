@@ -1,0 +1,181 @@
+<!--/**-->
+<!--* @author ishanka on 6/14/21 at 11:33 PM-->
+<!--* @since 0.0.1-->
+<!--*/-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Easy Car Rent</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../assests/bootsrap/css/bootstrap.min.css">
+    <style>
+        #btnHome {
+            font-weight: 800;
+            font-size: 37px;
+            margin-left: 20px;
+            margin-right: 450px;
+        }
+
+        #newRentForm, #rentalRequest, #viewCar {
+            margin-left: 35px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-danger">
+    <div class="container-fluid ">
+        <a class="navbar-brand text-white" href="#newRentForm" id="btnHome">Easy Car Rental</a>
+        <div class="collapse navbar-collapse mx-5" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" href="#newRentForm"
+                       id="newRentForm">New Rent</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#rentalRequest" id="rentalRequest">Your Rental Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" href="#viewCar" id="viewCar">View Cars</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid mt-3" id="customerform">
+    <h5 class="mx-3">What kind of car are you looking for?</h5>
+    <div class="row p-3">
+        <div class="col-xl-12 col-lg-12">
+            <div class="bg-white card">
+                <div class="card-body bg-dark text-white">
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-3 ">
+                            <lable>Car Type:</lable>
+                            <select class="form-control" id="cmbCarType">
+                                <option selected="selected" disabled="disabled">-Select Type-</option>
+                                <span class="control-error" id="lblcartype"></span>
+                            </select>
+                        </div>
+                        <div class="form-group col-3">
+                            <lable>Car Brad:</lable>
+                            <select class="form-control" id="cmbBrand">
+                                <option selected="selected" disabled="disabled">-Select Car Brand-</option>
+                                <span class="control-error" id="lblbrand"></span>
+                            </select>
+                        </div>
+                        <div class="form-group col-3">
+                            <lable>Dropoff Location:</lable>
+                            <select class="form-control" id="cmbDropOff">
+                                <option selected="selected" disabled="disabled">-Select Dropoff Location-</option>
+                                <span class="control-error" id="lbldropoof"></span>
+                            </select>
+                        </div>
+                        <div class="form-group col-3">
+                            <lable>Need A Driver:</lable>
+                            <select class="form-control" id="cmbDriverNeed">
+                                <option selected="selected" disabled="disabled">-Select Driver-</option>
+                                <span class="control-error" id="lbldriverneed"></span>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-2 ">
+                            <lable>Select Car ID:</lable>
+                            <select class="form-control" id="cmbCarId">
+                                <option selected="selected" disabled="disabled">-Select Car ID-</option>
+                                <span class="control-error" id="lblcarid"></span>
+                            </select>
+                        </div>
+                        <div class="form-group col-2">
+                            <lable>Car ID:</lable>
+                            <input type="text" id="txtCarId" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-2">
+                            <lable>No of Passengers:</lable>
+                            <input type="number" id="txtNoOfPassenger" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-2">
+                            <lable>Transmission Type:</lable>
+                            <input type="number" id="txtTransType" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-2">
+                            <lable>Fuel Type:</lable>
+                            <input type="number" id="txtFuelType" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-2">
+                            <lable>Color:</lable>
+                            <input type="number" id="txtColor" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-3 ">
+                            <lable>Pickup Date:</lable>
+                            <input type="date" id="txtPickupDate" class="form-control">
+                        </div>
+                        <div class="form-group col-3">
+                            <lable>Return Date:</lable>
+                            <input type="date" id="txtReturnDate" class="form-control">
+                        </div>
+                        <div class="form-group col-2">
+                            <lable>No of Days/Months:</lable>
+                            <input type="text" id="txtDuration" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-2">
+                            <lable>Rate:</lable>
+                            <input type="text" id="txtRate" class="form-control" disabled>
+                        </div>
+
+                        <div class="form-group col-2">
+                            <lable>Cost For Rent:</lable>
+                            <input type="text" id="txtCost" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-3">
+                            <lable>Lost Damage Waiver:</lable>
+                            <input type="text" id="txtLoosDamage" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-3">
+                            <label class="form-label m-0" for="receipt">Select Your Loss Damage Waiver Receipt</label>
+                            <input class="form-control" id="receipt" name="receipt" type="file">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table table-hover border mt-3 p-3">
+    <thead class="bg-danger text-white">
+    <tr>
+        <!--        <th scope="col">ID</th>-->
+        <th scope="col">Brand</th>
+        <th scope="col">Car Type</th>
+        <th scope="col">Passengers</th>
+        <th scope="col">Trans Type</th>
+        <th scope="col">Fuel Type</th>
+        <th scope="col">Color</th>
+        <th scope="col">Reg No</th>
+        <th scope="col">Daily Rate</th>
+        <!--            <th scope="col">Free KM Day</th>-->
+        <th scope="col">Monthly Rate</th>
+        <!--            <th scope="col">Free KM Month</th>-->
+        <th scope="col">Cost Extra KM</th>
+        <th scope="col">Loss Damage</th>
+        <th scope="col">Status</th>
+        <th scope="col">View</th>
+    </tr>
+    </thead>
+    <tbody class="bg-secondary text-white" id="tblCar">
+    </tbody>
+</table>
+
+<script src="../assests/jquery-3.6.0.js"></script>
+<script src="../assests/bootsrap/js/bootstrap.min.js"></script>
+<script src="../Controller/RentController.js"></script>
+</body>
+</html>

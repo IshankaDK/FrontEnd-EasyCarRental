@@ -26,25 +26,31 @@ function saveCustomer() {
         success: function (data) {
             console.log(data)
             if (data){
-               uploadNIC();
+                uploadNICAndLicense();
             }
         }
     });
 }
-function uploadNIC() {
-    var fileObject = $("#nic")[0].files[0];//access file object from input field
-    var fileName = $("#nic")[0].files[0].name; //get file name
-    var data = new FormData(); //setup form data object to send file data
-    data.append("nic", fileObject, fileName); //append data
+function uploadNICAndLicense() {
+    var fileObject1 = $("#nic")[0].files[0];//access file object from input field
+    var fileName1 = $("#nic")[0].files[0].name; //get file name
+    var fileObject2 = $("#license")[0].files[0];
+    var fileName2 = $("#license")[0].files[0].name;
+
+    var data = new FormData();
+    data.append("license", fileObject1, fileName1);
+    data.append("nic", fileObject2, fileName2); //append data
     $.ajax({
         url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer",
-        method: 'post',
+        method: 'POST',
         async: true,
         processData: false, //stop processing data of request body
         contentType: false, // stop setting content type by jQuery
         data: data,
-        success: function () {
-            alert("File Uploaded");
+        success: function (data) {
+            if (data){
+                alert("Customer Saved and 2 files uploaded.")
+            }
         }
     });
 }
