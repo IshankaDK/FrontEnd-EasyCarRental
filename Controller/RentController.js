@@ -72,8 +72,7 @@ function loadAllCarsToTable(data) {
     }
 }
 
-
-function CarIdChange(){
+function CarIdChange() {
     $('#cmbCarId').on('change', function () {
         let carId = $("#cmbCarId :selected").val();
         $.ajax({
@@ -90,11 +89,11 @@ function CarIdChange(){
                     $('#txtColor').val(data.color);
                     $('#txtLoosDamage').val(data.lossDamageWaiver);
                     $('#txtCostExtraKM').val(data.priceForExtraKM);
-                    if ($('#txtMonths').val() >= 1 ){
-                        $('#txtRate').val(data.monthlyRate+"/"+data.dailyRate);
+                    $('#txtMonthRate').val(data.monthlyRate);
+                    $('#txtDayRate').val(data.dailyRate);
+                    if ($('#txtMonths').val() >= 1) {
                         $('#txtCost').val((data.monthlyRate * $('#txtMonths').val()) + data.dailyRate * $('#txtDays').val());
-                    }else {
-                        $('#txtRate').val(data.dailyRate);
+                    } else {
                         $('#txtCost').val(data.dailyRate * $('#txtDays').val());
                     }
                 }
@@ -104,45 +103,130 @@ function CarIdChange(){
     });
 }
 
+CarIdChange();
+
 $("#txtPickupDate").change(function () {
     let date01 = new Date($(this).val());
     console.log(date01)
     $("#txtReturnDate").change(function () {
         let date02 = new Date($(this).val());
         console.log(date02)
-        CarIdChange();
-        Duration(date02,date01);
+        Duration(date02, date01);
     });
 });
 
-function Duration(date1,date2) {
+function Duration(date1, date2) {
     const oneDay = 24 * 60 * 60 * 1000;
     let diffDays = Math.round(Math.abs((date1 - date2) / oneDay));
-   if (diffDays<31){
-       $("#txtDays").val(diffDays);
-       $("#txtMonths").val(0);
-   }else {
-       let months = Math.floor( diffDays/31 );
-       let days = diffDays%31;
-       $("#txtMonths").val(months);
-       $("#txtDays").val(days);
-   }
+    if (diffDays < 31) {
+        $("#txtDays").val(diffDays);
+        $("#txtMonths").val(0);
+    } else {
+        let months = Math.floor(diffDays / 31);
+        let days = diffDays % 31;
+        $("#txtMonths").val(months);
+        $("#txtDays").val(days);
+    }
     let carId = $("#cmbCarId :selected").val();
-    $.ajax({
-        method: "GET",
-        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?id=" + carId,
-        contentType: 'application/json',
-        async: true,
-        success: function (data) {
-            if ($('#cmbCarId :selected').val() === data.carId) {
-                if ($('#txtMonths').val() >= 1 ){
-                    $('#txtRate').val(data.monthlyRate+"/"+data.dailyRate);
-                    $('#txtCost').val((data.monthlyRate * $('#txtMonths').val()) + data.dailyRate * $('#txtDays').val());
-                }else {
-                    $('#txtRate').val(data.dailyRate);
-                    $('#txtCost').val(data.dailyRate * $('#txtDays').val());
+    if (carId != "-Select Car ID-") {
+        $.ajax({
+            method: "GET",
+            url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?id=" + carId,
+            contentType: 'application/json',
+            async: true,
+            success: function (data) {
+                if ($('#cmbCarId :selected').val() === data.carId) {
+                    if ($('#txtMonths').val() >= 1) {
+                        $('#txtCost').val((data.monthlyRate * $('#txtMonths').val()) + data.dailyRate * $('#txtDays').val());
+                    } else {
+                        $('#txtCost').val(data.dailyRate * $('#txtDays').val());
+                    }
                 }
             }
+        });
+    }
+
+}
+
+$('#btnRent').click(function () {
+    let rentId = "R001";
+    let pickDate = $("#txtPickupDate").val();
+    let returnDate = $("#txtReturnDate").val();
+    let duration = $("#txtMonths").val() * 31 + ($('#txtDays').val());
+    let monthRate = $("#txtMonthRate").val();
+    let dayRate = $("#txtDayRate").val();
+    let cost = $("#txtCost").val();
+    let extraKM = 0;
+    let status = "pending";
+    let customerEmail = "01";
+    let carId = $("#txtCarId").val();
+    let driverId = "driver1";
+    // $.ajax({
+    //     method: "GET",
+    //     url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?id=" + carId,
+    //     contentType: 'application/json',
+    //     async: true,
+    //     success: function (data) {
+    //
+    //     }
+    // });
+
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
+        contentType: 'application/json',
+        async: true,
+        data: JSON.stringify({
+            rentId: rentId,
+            startDate: pickDate,
+            endDate: returnDate,
+            duration: duration,
+            monthRate: monthRate,
+            dayRate: dayRate,
+            cost: cost,
+            extraKM: extraKM,
+            status: status,
+            customerEmail: {
+                "email": "01",
+                "address": "kamla",
+                "nic": "13123",
+                "driveLicense": "456565645",
+                "contact": "0111656",
+                "password": "000000"
+            },
+            carId: {
+                "carId": "Car001",
+                "brand": "Toyota",
+                "carType": "Premium Car",
+                "noOfPassengers": 5,
+                "transmissionType": "Auto",
+                "fuelType": "Petrol",
+                "color": "Black",
+                "registrationNumber": "12345678",
+                "dailyRate": 6000.0,
+                "freeMileageForADay": 100,
+                "monthlyRate": 175230.0,
+                "freeMileageForAMonth": 2400,
+                "priceForExtraKM": 65.0,
+                "lossDamageWaiver": 15000.0,
+                "status": "Available"
+            },
+            driverId: {
+                "driverId": "driver1",
+                "driverName": "kamal",
+                "driverAddress": "galle",
+                "diverContact": "0777777",
+                "driverStatus": "avail"
+            }
+        }),
+        success: function (data) {
+            console.log(data)
+            // if (data) {
+            //
+            //     // alert("Rent Saved!");
+            // } else {
+            //     alert("Saving Failed!");
+            // }
         }
     });
-}
+});

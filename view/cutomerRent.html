@@ -69,7 +69,7 @@
                         </div>
                         <div class="form-group col-3 ">
                             <lable>Pickup Date:</lable>
-                            <input type="date" id="txtPickupDate" class="form-control" >
+                            <input type="date" id="txtPickupDate" class="form-control">
                         </div>
                         <div class="form-group col-3">
                             <lable>Return Date:</lable>
@@ -130,13 +130,14 @@
                             <input type="text" id="txtDays" class="form-control" disabled>
                         </div>
                         <div class="form-group col-2">
-                            <lable>Rate (Monthly / Daily) (Rs):</lable>
-                            <input type="text" id="txtRate" class="form-control" disabled>
+                            <lable>Rate (Monthly) (Rs):</lable>
+                            <input type="text" id="txtMonthRate" class="form-control" disabled>
                         </div>
                         <div class="form-group col-2">
-                            <lable>Cost For Rent (Rs):</lable>
-                            <input type="text" id="txtCost" class="form-control" disabled>
+                            <lable>Rate (Daily) (Rs):</lable>
+                            <input type="text" id="txtDayRate" class="form-control" disabled>
                         </div>
+
                     </div>
                     <div class="row p-2 mt-3">
                         <div class="form-group col-3">
@@ -151,9 +152,12 @@
                             <lable>Cost For Extra KM (Rs):</lable>
                             <input type="text" id="txtCostExtraKM" class="form-control" disabled>
                         </div>
-                        <div class="form-group col-4 mt-4 px-4">
-                            <button type="button" class="btn btn-success fw-bold mx-4 px-5" id="btnCarAdd">Rent</button>
-                            <button type="button" class="btn btn-danger fw-bold mx-4 px-5" id="btnCarDelete">Clear</button>
+                        <div class="form-group col-2">
+                            <lable>Cost For Rent (Rs):</lable>
+                            <input type="text" id="txtCost" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-2 mt-4 px-4">
+                            <button type="button" class="btn btn-success fw-bold px-5 mx-3" id="btnRent">Rent</button>
                         </div>
                     </div>
                 </div>
