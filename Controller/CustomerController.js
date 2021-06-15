@@ -38,8 +38,8 @@ function uploadNICAndLicense() {
     var fileName2 = $("#license")[0].files[0].name;
 
     var data = new FormData();
-    data.append("license", fileObject1, fileName1);
-    data.append("nic", fileObject2, fileName2); //append data
+    data.append("nic", fileObject1, fileName1);
+    data.append("license", fileObject2, fileName2); //append data
     $.ajax({
         url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer",
         method: 'POST',

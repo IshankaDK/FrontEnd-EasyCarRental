@@ -67,19 +67,13 @@
                                 <span class="control-error" id="lblbrand"></span>
                             </select>
                         </div>
-                        <div class="form-group col-3">
-                            <lable>Dropoff Location:</lable>
-                            <select class="form-control" id="cmbDropOff">
-                                <option selected="selected" disabled="disabled">-Select Dropoff Location-</option>
-                                <span class="control-error" id="lbldropoof"></span>
-                            </select>
+                        <div class="form-group col-3 ">
+                            <lable>Pickup Date:</lable>
+                            <input type="date" id="txtPickupDate" class="form-control" >
                         </div>
                         <div class="form-group col-3">
-                            <lable>Need A Driver:</lable>
-                            <select class="form-control" id="cmbDriverNeed">
-                                <option selected="selected" disabled="disabled">-Select Driver-</option>
-                                <span class="control-error" id="lbldriverneed"></span>
-                            </select>
+                            <lable>Return Date:</lable>
+                            <input type="date" id="txtReturnDate" class="form-control">
                         </div>
                     </div>
                     <div class="row p-2 mt-3">
@@ -100,42 +94,53 @@
                         </div>
                         <div class="form-group col-2">
                             <lable>Transmission Type:</lable>
-                            <input type="number" id="txtTransType" class="form-control" disabled>
+                            <input type="text" id="txtTransType" class="form-control" disabled>
                         </div>
                         <div class="form-group col-2">
                             <lable>Fuel Type:</lable>
-                            <input type="number" id="txtFuelType" class="form-control" disabled>
+                            <input type="text" id="txtFuelType" class="form-control" disabled>
                         </div>
                         <div class="form-group col-2">
                             <lable>Color:</lable>
-                            <input type="number" id="txtColor" class="form-control" disabled>
+                            <input type="text" id="txtColor" class="form-control" disabled>
                         </div>
                     </div>
                     <div class="row p-2 mt-3">
-                        <div class="form-group col-3 ">
-                            <lable>Pickup Date:</lable>
-                            <input type="date" id="txtPickupDate" class="form-control">
-                        </div>
-                        <div class="form-group col-3">
-                            <lable>Return Date:</lable>
-                            <input type="date" id="txtReturnDate" class="form-control">
+
+                        <div class="form-group col-2">
+                            <lable>Dropoff Location:</lable>
+                            <select class="form-control" id="cmbDropOff">
+                                <option selected="selected" disabled="disabled">-Select Dropoff Location-</option>
+                                <span class="control-error" id="lbldropoof"></span>
+                            </select>
                         </div>
                         <div class="form-group col-2">
-                            <lable>No of Days/Months:</lable>
-                            <input type="text" id="txtDuration" class="form-control" disabled>
+                            <lable>Need A Driver:</lable>
+                            <select class="form-control" id="cmbDriverNeed">
+                                <option selected="selected" disabled="disabled">-Select Driver-</option>
+                                <span class="control-error" id="lbldriverneed"></span>
+                            </select>
                         </div>
                         <div class="form-group col-2">
-                            <lable>Rate:</lable>
+                            <lable>No of Months:</lable>
+                            <input type="text" id="txtMonths" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-2">
+                            <lable>No of Days:</lable>
+                            <input type="text" id="txtDays" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-2">
+                            <lable>Rate (Monthly / Daily) (Rs):</lable>
                             <input type="text" id="txtRate" class="form-control" disabled>
                         </div>
                         <div class="form-group col-2">
-                            <lable>Cost For Rent:</lable>
+                            <lable>Cost For Rent (Rs):</lable>
                             <input type="text" id="txtCost" class="form-control" disabled>
                         </div>
                     </div>
                     <div class="row p-2 mt-3">
                         <div class="form-group col-3">
-                            <lable>Lost Damage Waiver:</lable>
+                            <lable>Lost Damage Waiver (Rs):</lable>
                             <input type="text" id="txtLoosDamage" class="form-control" disabled>
                         </div>
                         <div class="form-group col-3">
@@ -143,7 +148,7 @@
                             <input class="form-control" id="receipt" name="receipt" type="file">
                         </div>
                         <div class="form-group col-2">
-                            <lable>Cost For Extra KM:</lable>
+                            <lable>Cost For Extra KM (Rs):</lable>
                             <input type="text" id="txtCostExtraKM" class="form-control" disabled>
                         </div>
                         <div class="form-group col-4 mt-4 px-4">
@@ -161,6 +166,7 @@
     <table class="table table-hover border mt-3 p-3">
         <thead class="bg-danger text-white">
         <tr>
+            <th scope="col">ID</th>
             <th scope="col">Brand</th>
             <th scope="col">Car Type</th>
             <th scope="col">Passengers</th>
