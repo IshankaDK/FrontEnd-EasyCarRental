@@ -1,5 +1,5 @@
 getAllDrivers();
-// Car Add
+// Driver Add
 $("#btnDriverAdd").click(function () {
     let driverId = $("#txtDriverId").val();
     let driverName = $("#txtDriverName").val();
@@ -23,9 +23,67 @@ $("#btnDriverAdd").click(function () {
             console.log(data)
             if (data) {
                 alert("Driver Saved!");
-                getAllCars();
+                getAllDrivers();
+
             } else {
                 alert("Saving Failed!");
+            }
+        }
+    });
+});
+
+// Driver Update
+$("#btnDriverUpdate").click(function () {
+    let driverId = $("#txtDriverId").val();
+    let driverName = $("#txtDriverName").val();
+    let driverAddress = $("#txtDriverAddress").val();
+    let driverContact = $("#txtDriverContact").val();
+    let driverStatus = $("#cmbDriverStatus :selected").val();
+
+    $.ajax({
+        method: "PUT",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver",
+        contentType: 'application/json',
+        async: true,
+        data: JSON.stringify({
+            driverId:driverId,
+            driverName:driverName,
+            driverAddress:driverAddress,
+            driverContact:driverContact,
+            driverStatus:driverStatus
+        }),
+        success: function (data) {
+            console.log(data)
+            if (data) {
+                alert("Driver Updated!");
+                getAllDrivers();
+
+            } else {
+                alert("update Failed!");
+            }
+        }
+    });
+});
+
+$("#btnDriverDelete").click(function () {
+    let driverId = $("#txtDriverId").val();
+
+    $.ajax({
+        method: "DELETE",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver",
+        contentType: 'application/json',
+        async: true,
+        data: JSON.stringify({
+            driverId:driverId
+        }),
+        success: function (data) {
+            console.log(data)
+            if (data) {
+                alert("Driver Deleted!");
+                getAllDrivers();
+
+            } else {
+                alert("Delete Failed!");
             }
         }
     });
@@ -66,25 +124,4 @@ function loadAllDriversToTable(data) {
         var row = `<tr><td>${driverId}</td><td>${driverName}</td><td>${driverAddress}</td><td>${driverContact}</td><td>${driverStatus}</td></tr>`;
         $('#tblDriver').append(row);
     }
-
-    // // Table click Event
-    // $('#tblCar>tr').off('click');
-    // $('#tblCar>tr').click(function () {
-    //     let carId = $(this).children('td:eq(0)').text();
-    //     let brand = $(this).children('td:eq(1)').text();
-    //     let carType = $(this).children('td:eq(2)').text();
-    //     let transmissionType = $(this).children('td:eq(3)').text();
-    //     let fuelType = $(this).children('td:eq(4)').text();
-    //     let color = $(this).children('td:eq(5)').text();
-    //     let dailyRate = $(this).children('td:eq(6)').text();
-    //     let monthlyRate = $(this).children('td:eq(7)').text();
-    //     let priceForExtraKM = $(this).children('td:eq(8)').text();
-    //     let lossDamageWaiver = $(this).children('td:eq(9)').text();
-    //     let status = $(this).children('td:eq(10)').text();
-    //
-    //     $("#txtCarId").val(carId);
-    //     $("#txtBrand").val(brand);
-    //     $("#cmbCarType :selected").val(carType);
-    // $("#txtCustomerSalary0").val(salary);
-    // });
 }

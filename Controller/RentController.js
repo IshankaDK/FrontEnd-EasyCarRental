@@ -172,21 +172,20 @@ $('#btnRent').click(function () {
 
 function addRent(){
     let pickDate = $("#txtPickupDate").val();
-    // console.log(pickDate);
     let returnDate = $("#txtReturnDate").val();
-    // console.log(returnDate);
     let duration = Number.parseInt($("#txtMonths").val()) * 31 + Number.parseInt($('#txtDays').val());
     let monthRate = $("#txtMonthRate").val();
     let dayRate = $("#txtDayRate").val();
     let cost = $("#txtCost").val();
     let extraKM = 0;
     let status = "pending";
-    let customerEmail = "abc"; // $("#txtCustomerEmai").val();
+    let customerEmail = "C@G3"; // $("#txtCustomerEmai").val();
     let carId = $("#txtCarId").val();
-    let driverId = "driver1";
 
+    let driveNeedOrNot = $('#cmbDriverNeed :selected').val();
     let car;
     let customer;
+    let driver;
 
     $.ajax({
         method: "GET",
@@ -204,35 +203,40 @@ function addRent(){
                 success: function (data) {
                     console.log(data);
                     customer = data;
-                    $.ajax({
-                        method: "POST",
-                        url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
-                        contentType: 'application/json',
-                        async: true,
-                        data: JSON.stringify({
-                            startDate: pickDate,
-                            endDate: returnDate,
-                            duration: duration,
-                            monthRate: monthRate,
-                            dayRate: dayRate,
-                            cost: cost,
-                            extraKM: extraKM,
-                            status: status,
-                            customerEmail: customer,
-                            carId: car,
-                            driverId: {
-                                "driverId": "driver1",
-                                "driverName": "kamal",
-                                "driverAddress": "galle",
-                                "diverContact": "0777897456",
-                                "driverStatus": "avail"
+                    if (driveNeedOrNot !== "Drive Yourself"){
+                        $.ajax({
+                            method: "GET",
+                            url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver?status=Available",
+                            contentType: 'application/json',
+                            async: true,
+                            success: function (data) {
+                                console.log(data);
+                                driver = data;
+                                $.ajax({
+                                    method: "POST",
+                                    url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
+                                    contentType: 'application/json',
+                                    async: true,
+                                    data: JSON.stringify({
+                                        startDate: pickDate,
+                                        endDate: returnDate,
+                                        duration: duration,
+                                        monthRate: monthRate,
+                                        dayRate: dayRate,
+                                        cost: cost,
+                                        extraKM: extraKM,
+                                        status: status,
+                                        customerEmail: customer,
+                                        carId: car,
+                                        driverId: driver[0]
+                                    }),
+                                    success: function (data) {
+                                        console.log(data)
+                                    }
+                                });
                             }
-                        }),
-                        success: function (data) {
-                            console.log(data)
-
-                        }
-                    });
+                        });
+                    }
                 }
             });
         }
