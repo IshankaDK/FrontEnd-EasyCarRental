@@ -1,5 +1,5 @@
 $("#btnCustomerAdd").click(function () {
-   saveCustomer();
+   uploadNICAndLicense();
 });
 
 function saveCustomer() {
@@ -26,7 +26,7 @@ function saveCustomer() {
         success: function (data) {
             console.log(data)
             if (data){
-                uploadNICAndLicense();
+                alert("Customer Saved and 2 files uploaded.")
             }
         }
     });
@@ -49,7 +49,7 @@ function uploadNICAndLicense() {
         data: data,
         success: function (data) {
             if (data){
-                alert("Customer Saved and 2 files uploaded.")
+                saveCustomer();
             }
         }
     });

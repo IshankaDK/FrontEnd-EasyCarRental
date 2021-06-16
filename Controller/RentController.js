@@ -1,13 +1,14 @@
 getAllCars();
+loadStaticCombo();
 
-function loadCombo(data) {
+function loadStaticCombo() {
     // Car Type
     $('#cmbCarType').children().remove();
     $('#cmbCarType').append("<option>-Select Type-</option>");
     $($('#cmbCarType').children().get(0)).attr('disabled', 'true');
-    $('#cmbCarType').append("<option>General Car</option>");
-    $('#cmbCarType').append("<option>Premium Car</option>");
-    $('#cmbCarType').append("<option>Luxury Car</option>");
+    $('#cmbCarType').append("<option value='1'>General Car</option>");
+    $('#cmbCarType').append("<option value='2'>Premium Car</option>");
+    $('#cmbCarType').append("<option value='3'>Luxury Car</option>");
 
     // Dropoff Location:
     $('#cmbDropOff').children().remove();
@@ -24,11 +25,27 @@ function loadCombo(data) {
     $('#cmbDriverNeed').append("<option>Drive Yourself</option>");
     $('#cmbDriverNeed').append("<option>Driver From Easy Car Rental</option>");
 
+
+}
+
+function loadBrandCombo(data) {
+    $('#cmbBrand').children().remove();
+    $('#cmbBrand').append("<option>-Select Car Brand-</option>");
+    $($('#cmbBrand').children().get(0)).attr('disabled', 'true');
+    let allCars = data;
+    for (var i in allCars) {
+        let brand = allCars[i].brand;
+        $('#cmbBrand').append("<option>" + brand + "</option>");
+    }
+}
+
+function loadCarIdCombo(data) {
+    $('#cmbCarId').children().remove();
+    $('#cmbCarId').append("<option>-Select Car Brand-</option>");
+    $($('#cmbCarId').children().get(0)).attr('disabled', 'true');
     let allCars = data;
     for (var i in allCars) {
         let id = allCars[i].carId;
-        let brand = allCars[i].brand;
-        $('#cmbBrand').append("<option>" + brand + "</option>");
         $('#cmbCarId').append("<option>" + id + "</option>");
     }
 }
@@ -41,7 +58,8 @@ function getAllCars() {
         async: true,
         success: function (data) {
             loadAllCarsToTable(data);
-            loadCombo(data);
+            loadBrandCombo(data);
+            loadCarIdCombo(data);
         }
     });
 }
@@ -74,14 +92,14 @@ function loadAllCarsToTable(data) {
 
 function CarIdChange() {
     $('#cmbCarId').on('change', function () {
-        let carId = $("#cmbCarId :selected").val();
+        let carId = $("#cmbCarId :selected").text();
         $.ajax({
             method: "GET",
             url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?id=" + carId,
             contentType: 'application/json',
             async: true,
             success: function (data) {
-                if ($('#cmbCarId :selected').val() === data.carId) {
+                if ($('#cmbCarId :selected').text() === data.carId) {
                     $('#txtCarId').val(data.carId);
                     $('#txtNoOfPassenger').val(data.noOfPassengers);
                     $('#txtTransType').val(data.transmissionType);
@@ -151,82 +169,116 @@ function Duration(date1, date2) {
 $('#btnRent').click(function () {
     let rentId = "R001";
     let pickDate = $("#txtPickupDate").val();
+    console.log(pickDate);
     let returnDate = $("#txtReturnDate").val();
+    console.log(returnDate);
     let duration = $("#txtMonths").val() * 31 + ($('#txtDays').val());
     let monthRate = $("#txtMonthRate").val();
     let dayRate = $("#txtDayRate").val();
     let cost = $("#txtCost").val();
     let extraKM = 0;
     let status = "pending";
-    let customerEmail = "01";
+    let customerEmail = "abc"; // $("#txtCustomerEmai").val();
     let carId = $("#txtCarId").val();
     let driverId = "driver1";
-    // $.ajax({
-    //     method: "GET",
-    //     url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?id=" + carId,
-    //     contentType: 'application/json',
-    //     async: true,
-    //     success: function (data) {
-    //
-    //     }
-    // });
+
+    let car;
+    let customer;
 
     $.ajax({
-        method: "POST",
-        url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?id=" + carId,
         contentType: 'application/json',
         async: true,
-        data: JSON.stringify({
-            rentId: rentId,
-            startDate: pickDate,
-            endDate: returnDate,
-            duration: duration,
-            monthRate: monthRate,
-            dayRate: dayRate,
-            cost: cost,
-            extraKM: extraKM,
-            status: status,
-            customerEmail: {
-                "email": "01",
-                "address": "kamla",
-                "nic": "13123",
-                "driveLicense": "456565645",
-                "contact": "0111656",
-                "password": "000000"
-            },
-            carId: {
-                "carId": "Car001",
-                "brand": "Toyota",
-                "carType": "Premium Car",
-                "noOfPassengers": 5,
-                "transmissionType": "Auto",
-                "fuelType": "Petrol",
-                "color": "Black",
-                "registrationNumber": "12345678",
-                "dailyRate": 6000.0,
-                "freeMileageForADay": 100,
-                "monthlyRate": 175230.0,
-                "freeMileageForAMonth": 2400,
-                "priceForExtraKM": 65.0,
-                "lossDamageWaiver": 15000.0,
-                "status": "Available"
-            },
-            driverId: {
-                "driverId": "driver1",
-                "driverName": "kamal",
-                "driverAddress": "galle",
-                "diverContact": "0777777",
-                "driverStatus": "avail"
-            }
-        }),
+        success: function (data) {
+            console.log(data);
+            car = data;
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer?email=" + customerEmail,
+                contentType: 'application/json',
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                    customer = data;
+                    $.ajax({
+                        method: "POST",
+                        url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
+                        contentType: 'application/json',
+                        async: true,
+                        data: JSON.stringify({
+                            startDate: pickDate,
+                            endDate: returnDate,
+                            duration: duration,
+                            monthRate: monthRate,
+                            dayRate: dayRate,
+                            cost: cost,
+                            extraKM: extraKM,
+                            status: status,
+                            customerEmail: customer,
+                            carId: car,
+                            driverId: {
+                                "driverId": "driver1",
+                                "driverName": "kamal",
+                                "driverAddress": "galle",
+                                "diverContact": "0777897456",
+                                "driverStatus": "avail"
+                            }
+                        }),
+                        success: function (data) {
+                            console.log(data)
+                            // if (data) {
+                            //
+                            //     // alert("Rent Saved!");
+                            // } else {
+                            //     alert("Saving Failed!");
+                            // }
+                        }
+                    });
+                }
+            });
+        }
+    });
+});
+
+
+$('#cmbCarType').on('change', function () {
+    let carType = $("#cmbCarType :selected").text();
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?type=" + carType,
+        contentType: 'application/json',
+        async: true,
         success: function (data) {
             console.log(data)
-            // if (data) {
-            //
-            //     // alert("Rent Saved!");
-            // } else {
-            //     alert("Saving Failed!");
-            // }
+            loadAllCarsToTable(data);
+            loadBrandCombo(data);
+            loadCarIdCombo(data);
+        }
+    });
+});
+
+$('#cmbBrand').on('change', function () {
+    let carBrand = $("#cmbBrand :selected").text();
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?brand=" + carBrand,
+        contentType: 'application/json',
+        async: true,
+        success: function (data) {
+            console.log(data)
+            loadAllCarsToTable(data);
+            loadCarIdCombo(data);
+            for (const dataKey in data) {
+                if (data[dataKey].carType == "Luxury Car") {
+                    $("#cmbCarType").val('3');
+                } else if (data[dataKey].carType == "Premium Car") {
+                    $("#cmbCarType").val('2');
+                } else {
+                    $("#cmbCarType").val('1');
+                }
+            }
+
         }
     });
 });

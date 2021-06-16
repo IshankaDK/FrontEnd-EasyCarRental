@@ -15,13 +15,17 @@
             font-weight: 800;
             font-size: 37px;
             margin-left: 20px;
-            margin-right: 450px;
+            margin-right: 400px;
         }
 
-        #newRentFormLink, #rentalRequest, #viewCarLink {
-            margin-left: 35px;
+        #newRentFormLink, #rentalRequest, #viewCarLink , #loginLink {
+            margin-left: 30px;
             font-size: 20px;
             font-weight: 600;
+        }
+        #user{
+          margin-right: 10px;
+            margin-left: 55vw;
         }
     </style>
 </head>
@@ -42,12 +46,49 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" aria-current="page" href="#viewCar" id="viewCarLink">View Cars</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" data-bs-toggle="modal" data-bs-target="#LoginModal" id="loginLink" >Login</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
+<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="LoginModalLabel">Login</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-2">
+                        <label for="loginEmail" class="col-form-label">Email:</label>
+                        <input type="email" class="form-control" id="loginEmail">
+                    </div>
+                    <div class="mb-2">
+                        <label for="loginPassword" class="col-form-label">Password:</label>
+                        <input type="password" class="form-control" id="loginPassword">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnLogin">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container-fluid mt-3" id="newRentForm">
-    <h5 class="mx-3">What kind of car are you looking for?</h5>
+    <div class="d-flex">
+        <h5 class="mx-3">
+            What kind of car are you looking for ?
+        </h5>
+            <h5 id="user" >
+                User :
+                <span id="userMail">Guest</span>
+            </h5>
+    </div>
+
     <div class="row p-3">
         <div class="col-xl-12 col-lg-12">
             <div class="bg-white card">
