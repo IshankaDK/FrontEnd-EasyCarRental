@@ -41,7 +41,7 @@ function loadBrandCombo(data) {
 
 function loadCarIdCombo(data) {
     $('#cmbCarId').children().remove();
-    $('#cmbCarId').append("<option>-Select Car Brand-</option>");
+    $('#cmbCarId').append("<option>-Select Car ID-</option>");
     $($('#cmbCarId').children().get(0)).attr('disabled', 'true');
     let allCars = data;
     for (var i in allCars) {
@@ -167,12 +167,15 @@ function Duration(date1, date2) {
 }
 
 $('#btnRent').click(function () {
-    let rentId = "R001";
+    uploadLossDamageReceipt();
+});
+
+function addRent(){
     let pickDate = $("#txtPickupDate").val();
-    console.log(pickDate);
+    // console.log(pickDate);
     let returnDate = $("#txtReturnDate").val();
-    console.log(returnDate);
-    let duration = $("#txtMonths").val() * 31 + ($('#txtDays').val());
+    // console.log(returnDate);
+    let duration = Number.parseInt($("#txtMonths").val()) * 31 + Number.parseInt($('#txtDays').val());
     let monthRate = $("#txtMonthRate").val();
     let dayRate = $("#txtDayRate").val();
     let cost = $("#txtCost").val();
@@ -227,20 +230,14 @@ $('#btnRent').click(function () {
                         }),
                         success: function (data) {
                             console.log(data)
-                            // if (data) {
-                            //
-                            //     // alert("Rent Saved!");
-                            // } else {
-                            //     alert("Saving Failed!");
-                            // }
+
                         }
                     });
                 }
             });
         }
     });
-});
-
+}
 
 $('#cmbCarType').on('change', function () {
     let carType = $("#cmbCarType :selected").text();
@@ -282,3 +279,23 @@ $('#cmbBrand').on('change', function () {
         }
     });
 });
+
+function uploadLossDamageReceipt() {
+    var fileObject = $("#receipt")[0].files[0];//access file object from input field
+    var fileName = $("#receipt")[0].files[0].name; //get file name
+    var data = new FormData();
+    data.append("receipt", fileObject, fileName);
+    $.ajax({
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
+        method: 'POST',
+        async: true,
+        processData: false, //stop processing data of request body
+        contentType: false, // stop setting content type by jQuery
+        data: data,
+        success: function (data) {
+            if (data){
+                addRent();
+            }
+        }
+    });
+}

@@ -18,13 +18,14 @@
             margin-right: 400px;
         }
 
-        #newRentFormLink, #rentalRequest, #viewCarLink , #loginLink {
+        #newRentFormLink, #rentalRequest, #viewCarLink, #loginLink {
             margin-left: 30px;
             font-size: 20px;
             font-weight: 600;
         }
-        #user{
-          margin-right: 10px;
+
+        #user {
+            margin-right: 10px;
             margin-left: 55vw;
         }
     </style>
@@ -47,12 +48,14 @@
                     <a class="nav-link text-white" aria-current="page" href="#viewCar" id="viewCarLink">View Cars</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" aria-current="page" data-bs-toggle="modal" data-bs-target="#LoginModal" id="loginLink" >Login</a>
+                    <a class="nav-link text-white" aria-current="page" data-bs-toggle="modal"
+                       data-bs-target="#LoginModal" id="loginLink">Login</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
 <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -78,15 +81,16 @@
         </div>
     </div>
 </div>
+
 <div class="container-fluid mt-3" id="newRentForm">
     <div class="d-flex">
         <h5 class="mx-3">
             What kind of car are you looking for ?
         </h5>
-            <h5 id="user" >
-                User :
-                <span id="userMail">Guest</span>
-            </h5>
+        <h5 id="user">
+            User :
+            <span id="userMail">Guest</span>
+        </h5>
     </div>
 
     <div class="row p-3">
@@ -118,36 +122,14 @@
                         </div>
                     </div>
                     <div class="row p-2 mt-3">
-                        <div class="form-group col-2 ">
-                            <lable>Select Car ID:</lable>
-                            <select class="form-control" id="cmbCarId">
-                                <option selected="selected" disabled="disabled">-Select Car ID-</option>
-                                <span class="control-error" id="lblcarid"></span>
-                            </select>
+                        <div class="form-group col-2">
+                            <lable>No of Months:</lable>
+                            <input type="text" id="txtMonths" class="form-control" disabled>
                         </div>
                         <div class="form-group col-2">
-                            <lable>Car ID:</lable>
-                            <input type="text" id="txtCarId" class="form-control" disabled>
+                            <lable>No of Days:</lable>
+                            <input type="text" id="txtDays" class="form-control" disabled>
                         </div>
-                        <div class="form-group col-2">
-                            <lable>No of Passengers:</lable>
-                            <input type="number" id="txtNoOfPassenger" class="form-control" disabled>
-                        </div>
-                        <div class="form-group col-2">
-                            <lable>Transmission Type:</lable>
-                            <input type="text" id="txtTransType" class="form-control" disabled>
-                        </div>
-                        <div class="form-group col-2">
-                            <lable>Fuel Type:</lable>
-                            <input type="text" id="txtFuelType" class="form-control" disabled>
-                        </div>
-                        <div class="form-group col-2">
-                            <lable>Color:</lable>
-                            <input type="text" id="txtColor" class="form-control" disabled>
-                        </div>
-                    </div>
-                    <div class="row p-2 mt-3">
-
                         <div class="form-group col-2">
                             <lable>Dropoff Location:</lable>
                             <select class="form-control" id="cmbDropOff">
@@ -162,14 +144,29 @@
                                 <span class="control-error" id="lbldriverneed"></span>
                             </select>
                         </div>
-                        <div class="form-group col-2">
-                            <lable>No of Months:</lable>
-                            <input type="text" id="txtMonths" class="form-control" disabled>
+
+                        <div class="form-group col-2 ">
+                            <lable>Select Car ID:</lable>
+                            <select class="form-control" id="cmbCarId">
+                                <option selected="selected" disabled="disabled">-Select Car ID-</option>
+                                <span class="control-error" id="lblcarid"></span>
+                            </select>
                         </div>
                         <div class="form-group col-2">
-                            <lable>No of Days:</lable>
-                            <input type="text" id="txtDays" class="form-control" disabled>
+                            <lable>Car ID:</lable>
+                            <input type="text" id="txtCarId" class="form-control" disabled>
                         </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-2">
+                            <lable>No of Passengers:</lable>
+                            <input type="number" id="txtNoOfPassenger" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-2">
+                            <lable>Transmission Type:</lable>
+                            <input type="text" id="txtTransType" class="form-control" disabled>
+                        </div>
+
                         <div class="form-group col-2">
                             <lable>Rate (Monthly) (Rs):</lable>
                             <input type="text" id="txtMonthRate" class="form-control" disabled>
@@ -178,7 +175,14 @@
                             <lable>Rate (Daily) (Rs):</lable>
                             <input type="text" id="txtDayRate" class="form-control" disabled>
                         </div>
-
+                        <div class="form-group col-2">
+                            <lable>Fuel Type:</lable>
+                            <input type="text" id="txtFuelType" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-2">
+                            <lable>Color:</lable>
+                            <input type="text" id="txtColor" class="form-control" disabled>
+                        </div>
                     </div>
                     <div class="row p-2 mt-3">
                         <div class="form-group col-3">
@@ -208,6 +212,7 @@
 </div>
 
 <div id="viewCar">
+    <h6 class="text-danger">* Free Km for Day: 100Km and Free Km for Month: 2400km for any Car</h6>
     <table class="table table-hover border mt-3 p-3">
         <thead class="bg-danger text-white">
         <tr>

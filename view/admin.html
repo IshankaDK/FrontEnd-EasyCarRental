@@ -7,15 +7,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cars</title>
+    <title>Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../assests/bootsrap/css/bootstrap.min.css">
+    <style>
+        #btnDashBoard {
+            font-weight: 800;
+            font-size: 35px;
+            margin-left: 20px;
+            margin-right: 200px;
+        }
+
+        #carManage, #rentRequests, #driverManage, #loginLink {
+            margin-left: 30px;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        #user {
+            margin-right: 10px;
+            margin-left: 55vw;
+        }
+    </style>
 </head>
 <body>
 
-<section class="container-fluid">
-    <h1>Car Manager</h1>
-    <div class="row mt-3 p-3">
+<nav class="navbar navbar-expand-lg navbar-light bg-info">
+    <div class="container-fluid ">
+        <a class="navbar-brand text-white" href="#newRentForm" id="btnDashBoard">Easy Car Rental - Admin</a>
+        <div class="collapse navbar-collapse mx-5" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" href="#carManageForm"
+                       id="carManage">Car Manage</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#driverManageForm" id="driverManage">Driver Manage</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" href="#viewCar" id="rentRequests">Rent Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" data-bs-toggle="modal"
+                       data-bs-target="#LoginModal" id="loginLink">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<section class="container-fluid mt-2" id="carManageForm">
+    <h3>Car Manager</h3>
+    <div class="row mt-2 p-2">
         <div class="col-xl-5 col-lg-6">
             <div class="bg-white card">
                 <div class="bg-danger card-header text-white" style="font-size: 25px">
@@ -78,7 +120,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-xl-7 col-lg-6">
             <div class="bg-white card">
                 <div class="bg-danger card-header text-white" style="font-size: 25px">
@@ -175,9 +216,84 @@
         </tbody>
     </table>
 </section>
+<section class="container-fluid" id="driverManageForm">
+    <h3>Driver Manager</h3>
+    <div class="row mt-3 p-3">
+        <div class="col-xl-4 col-lg-6">
+            <div class="bg-white card">
+                <div class="bg-dark card-header text-white" style="font-size: 25px">
+                    Drivers' Information
+                </div>
+                <div class="card-body bg-white text-dark">
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-6">
+                            <lable>Driver ID:</lable>
+                            <input type="text" id="txtDriverId" class="form-control">
+                            <span class="control-error" id="lblDriverId"></span>
+                        </div>
+                        <div class="form-group col-6">
+                            <lable>Driver Name:</lable>
+                            <input type="text" id="txtDriverName" class="form-control">
+                            <span class="control-error" id="lblDriverName"></span>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-12">
+                            <lable>Driver Address:</lable>
+                            <input type="text" id="txtDriverAddress" class="form-control">
+                            <span class="control-error" id="lblDriverAddress"></span>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-12">
+                            <lable>Driver Contact:</lable>
+                            <input type="text" id="txtDriverContact" class="form-control">
+                            <span class="control-error" id="lbldrivercontact"></span>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-12">
+                            <lable>Driver Status:</lable>
+                            <select class="form-control" id="cmbDriverStatus">
+                                <option selected="selected" disabled="disabled">-Select Driver Status-</option>
+                                <span class="control-error" id="lbldriverstatus"></span>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-12">
+                            <button type="button" class="btn btn-outline-success fw-bold" id="btnDriverAdd">Add</button>
+                            <button type="button" class="btn btn-outline-warning fw-bold" id="btnDriverUpdate">UPDATE</button>
+                            <button type="button" class="btn btn-outline-danger fw-bold" id="btnDriverDelete">DELETE</button>
+                            <button type="button" class="btn btn-danger fw-bold" id="btnDriverCancel">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+        <div class="col-xl-8 col-lg-6">
+            <table class="table table-hover border mt-1 p-2">
+                <thead class="bg-danger text-white">
+                <tr>
+                    <th scope="col">Driver ID</th>
+                    <th scope="col">Driver Name</th>
+                    <th scope="col">Driver Address</th>
+                    <th scope="col">Driver Contact</th>
+                    <th scope="col">Driver Status</th>
+
+                </tr>
+                </thead>
+                <tbody class="bg-secondary text-white" id="tblDriver">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
 <script src="../assests/jquery-3.6.0.js"></script>
 <script src="../assests/bootsrap/js/bootstrap.min.js"></script>
+<script src="../Controller/DriverController.js"></script>
 <script src="../Controller/CarController.js"></script>
 </body>
 </html>
