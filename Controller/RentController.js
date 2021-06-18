@@ -1,4 +1,4 @@
-getAllCars();
+getAllAvailableCars()
 loadStaticCombo();
 
 function loadStaticCombo() {
@@ -58,12 +58,24 @@ function getAllCars() {
         async: true,
         success: function (data) {
             loadAllCarsToTable(data);
+            // loadBrandCombo(data);
+            // loadCarIdCombo(data);
+        }
+    });
+}
+function getAllAvailableCars() {
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?status=Available",
+        contentType: 'application/json',
+        async: true,
+        success: function (data) {
+            loadAllCarsToTable(data);
             loadBrandCombo(data);
             loadCarIdCombo(data);
         }
     });
 }
-
 
 function loadAllCarsToTable(data) {
     let allCars = data;
@@ -85,7 +97,7 @@ function loadAllCarsToTable(data) {
         let status = allCars[i].status;
 
 
-        var row = `<tr><td>${id}</td><td>${brand}</td><td>${carType}</td><td>${noOfPassengers}</td><td>${transmissionType}</td><td>${fuelType}</td><td>${color}</td><td>${registrationNumber}</td><td>${dailyRate}</td><td>${monthlyRate}</td><td>${priceForExtraKM}</td><td>${lossDamageWaiver}</td><td>${status}</td><td> <button type="button" class="btn btn-success" id="btnView" style="font-size: 12px">View</button></td></tr>`;
+        let row = `<tr><td>${id}</td><td>${brand}</td><td>${carType}</td><td>${noOfPassengers}</td><td>${transmissionType}</td><td>${fuelType}</td><td>${color}</td><td>${registrationNumber}</td><td>${dailyRate}</td><td>${monthlyRate}</td><td>${priceForExtraKM}</td><td>${lossDamageWaiver}</td><td>${status}</td><td> <button type="button" class="btn btn-success" id="btnView" style="font-size: 12px">View</button></td></tr>`;
         $('#tblCarInRent').append(row);
     }
 }
@@ -170,7 +182,7 @@ $('#btnRent').click(function () {
     uploadLossDamageReceipt();
 });
 
-function addRent(){
+function addRent() {
     let pickDate = $("#txtPickupDate").val();
     let returnDate = $("#txtReturnDate").val();
     let duration = Number.parseInt($("#txtMonths").val()) * 31 + Number.parseInt($('#txtDays').val());
@@ -179,7 +191,7 @@ function addRent(){
     let cost = $("#txtCost").val();
     let extraKM = 0;
     let status = "pending";
-    let customerEmail = "C@G3"; // $("#txtCustomerEmai").val();
+    let customerEmail = $('#userMail').text();
     let carId = $("#txtCarId").val();
 
     let driveNeedOrNot = $('#cmbDriverNeed :selected').val();
@@ -203,7 +215,7 @@ function addRent(){
                 success: function (data) {
                     console.log(data);
                     customer = data;
-                    if (driveNeedOrNot !== "Drive Yourself"){
+                    if (driveNeedOrNot !== "Drive Yourself") {
                         $.ajax({
                             method: "GET",
                             url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver?status=Available",
@@ -236,11 +248,46 @@ function addRent(){
                                 });
                             }
                         });
+                    } else {
+                        $.ajax({
+                            method: "GET",
+                            url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver?id=No_Driver",
+                            contentType: 'application/json',
+                            async: true,
+                            success: function (data) {
+                                console.log(data);
+                                driver = data;
+                                $.ajax({
+                                    method: "POST",
+                                    url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
+                                    contentType: 'application/json',
+                                    async: true,
+                                    data: JSON.stringify({
+                                        startDate: pickDate,
+                                        endDate: returnDate,
+                                        duration: duration,
+                                        monthRate: monthRate,
+                                        dayRate: dayRate,
+                                        cost: cost,
+                                        extraKM: extraKM,
+                                        status: status,
+                                        customerEmail: customer,
+                                        carId: car,
+                                        driverId: driver
+                                    }),
+                                    success: function (data) {
+                                        console.log(data)
+                                    }
+                                });
+                            }
+                        });
                     }
                 }
             });
         }
     });
+
+
 }
 
 $('#cmbCarType').on('change', function () {
@@ -285,21 +332,92 @@ $('#cmbBrand').on('change', function () {
 });
 
 function uploadLossDamageReceipt() {
-    var fileObject = $("#receipt")[0].files[0];//access file object from input field
-    var fileName = $("#receipt")[0].files[0].name; //get file name
-    var data = new FormData();
-    data.append("receipt", fileObject, fileName);
+    let customerEmail = $('#userMail').text();
+    if (customerEmail !== "Guest") {
+        const fileObject = $("#receipt")[0].files[0];//access file object from input field
+        if (fileObject != null) {
+            const fileName = $("#receipt")[0].files[0].name; //get file name
+            const data = new FormData();
+            data.append("receipt", fileObject, fileName);
+            $.ajax({
+                url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
+                method: 'POST',
+                async: true,
+                processData: false, //stop processing data of request body
+                contentType: false, // stop setting content type by jQuery
+                data: data,
+                success: function (data) {
+                    if (data) {
+                        addRent();
+                    }
+                }
+            });
+        } else {
+            alert("Please Select Loss Damage Waiver Receipt..!")
+        }
+    } else {
+        $('#LoginModal').modal('show');
+    }
+}
+
+
+$('#logoutLink').hide();
+
+$('#btnLogin').click(function () {
+    let loginMail = $('#txtLoginEmail').val();
+    let loginPassword = $('#txtLoginPassword').val();
     $.ajax({
-        url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
-        method: 'POST',
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer?email=" + loginMail,
+        contentType: 'application/json',
         async: true,
-        processData: false, //stop processing data of request body
-        contentType: false, // stop setting content type by jQuery
-        data: data,
         success: function (data) {
-            if (data){
-                addRent();
+            console.log(data);
+            if (loginPassword === data.password) {
+                $('#userMail').text(data.email);
+                $('#LoginModal').modal('hide');
+                $('#loginLink').hide();
+                $('#logoutLink').show();
+                getAllAvailableCars();
+                $('#newRentForm').show();
+                $('#viewCar').show();
+                $('#rentalRequest').hide();
+            } else {
+                alert("Wrong Email and Password..!");
             }
+
         }
     });
-}
+
+});
+
+$('#logoutLink').click(function () {
+    $('#userMail').text("Guest");
+    $('#loginLink').show();
+    $('#registerLink').show();
+    $('#logoutLink').hide();
+    $('#txtLoginEmail').val("");
+    $('#txtLoginPassword').val("");
+});
+
+$('#viewCarLink').click(function () {
+    getAllCars();
+    $('#newRentForm').hide();
+    $('#rentalRequest').hide();
+    $('#viewCar').show();
+});
+
+$('#newRentFormLink').click(function () {
+    getAllAvailableCars();
+    $('#newRentForm').show();
+    $('#viewCar').show();
+    $('#rentalRequest').hide();
+});
+
+$('#rentalRequestLink').click(function () {
+    $('#newRentForm').hide();
+    $('#viewCar').hide();
+    $('#rentalRequest').show();
+});
+
+$('#rentalRequest').hide();

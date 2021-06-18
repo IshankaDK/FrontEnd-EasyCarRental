@@ -15,10 +15,10 @@
             font-weight: 800;
             font-size: 37px;
             margin-left: 20px;
-            margin-right: 400px;
+            margin-right: 250px;
         }
 
-        #newRentFormLink, #rentalRequest, #viewCarLink, #loginLink {
+        #newRentFormLink, #rentalRequestLink, #viewCarLink, #loginLink , #logoutLink ,#registerLink{
             margin-left: 30px;
             font-size: 20px;
             font-weight: 600;
@@ -42,21 +42,27 @@
                        id="newRentFormLink">New Rent</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#rentalRequest" id="rentalRequest">Your Rental Requests</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link text-white" aria-current="page" href="#viewCar" id="viewCarLink">View Cars</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-white" href="#rentalRequest" id="rentalRequestLink">Your Rental Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" id="registerLink" style="cursor: pointer">Register</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-white" aria-current="page" data-bs-toggle="modal"
-                       data-bs-target="#LoginModal" id="loginLink">Login</a>
+                       data-bs-target="#LoginModal" id="loginLink" style="cursor: pointer">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" id="logoutLink" style="cursor: pointer">Logout</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-<div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+<div class="modal fade" id="LoginModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -66,12 +72,12 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-2">
-                        <label for="loginEmail" class="col-form-label">Email:</label>
-                        <input type="email" class="form-control" id="loginEmail">
+                        <label for="txtLoginEmail" class="col-form-label">Email:</label>
+                        <input type="email" class="form-control" id="txtLoginEmail">
                     </div>
                     <div class="mb-2">
-                        <label for="loginPassword" class="col-form-label">Password:</label>
-                        <input type="password" class="form-control" id="loginPassword">
+                        <label for="txtLoginPassword" class="col-form-label">Password:</label>
+                        <input type="password" class="form-control" id="txtLoginPassword">
                     </div>
                 </form>
             </div>
@@ -82,7 +88,7 @@
     </div>
 </div>
 
-<div class="container-fluid mt-3" id="newRentForm">
+<div class="container-fluid mt-2" id="newRentForm">
     <div class="d-flex">
         <h5 class="mx-3">
             What kind of car are you looking for ?
@@ -211,7 +217,7 @@
     </div>
 </div>
 
-<div id="viewCar">
+<div id="viewCar" class="mt-2">
     <h6 class="text-danger">* Free Km for Day: 100Km and Free Km for Month: 2400km for any Car</h6>
     <table class="table table-hover border mt-3 p-3">
         <thead class="bg-danger text-white">
@@ -236,7 +242,9 @@
     </table>
 </div>
 
-
+<div id="rentalRequest">
+    NO Rent Request..
+</div>
 <script src="../assests/jquery-3.6.0.js"></script>
 <script src="../assests/bootsrap/js/bootstrap.min.js"></script>
 <script src="../Controller/RentController.js"></script>

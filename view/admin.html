@@ -18,23 +18,20 @@
             margin-right: 200px;
         }
 
-        #carManage, #rentRequests, #driverManage, #loginLink {
+        #carManage, #rentRequests, #driverManage, #adminLoginLink {
             margin-left: 30px;
             font-size: 20px;
             font-weight: 600;
+            cursor: pointer;
         }
 
-        #user {
-            margin-right: 10px;
-            margin-left: 55vw;
-        }
     </style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-info">
     <div class="container-fluid ">
-        <a class="navbar-brand text-white" href="#newRentForm" id="btnDashBoard">Easy Car Rental - Admin</a>
+        <a class="navbar-brand text-white" href="#" id="btnDashBoard">Easy Car Rental - Admin</a>
         <div class="collapse navbar-collapse mx-5" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -45,11 +42,11 @@
                     <a class="nav-link text-white" href="#driverManageForm" id="driverManage">Driver Manage</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" aria-current="page" href="#viewCar" id="rentRequests">Rent Requests</a>
+                    <a class="nav-link text-white" aria-current="page" href="#rentRequestsFrom" id="rentRequests">Rent Requests</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" aria-current="page" data-bs-toggle="modal"
-                       data-bs-target="#LoginModal" id="loginLink">Login</a>
+                       data-bs-target="#LoginModal" id="adminLoginLink">Login</a>
                 </li>
             </ul>
         </div>
@@ -216,7 +213,8 @@
         </tbody>
     </table>
 </section>
-<section class="container-fluid" id="driverManageForm">
+
+<section class="container-fluid mt2" id="driverManageForm">
     <h3>Driver Manager</h3>
     <div class="row mt-3 p-3">
         <div class="col-xl-4 col-lg-6">
@@ -291,8 +289,13 @@
 
     </div>
 </section>
+
+<section class="container-fluid" id="rentRequestsFrom">
+    rent req
+</section>
 <script src="../assests/jquery-3.6.0.js"></script>
 <script src="../assests/bootsrap/js/bootstrap.min.js"></script>
+<script src="../Controller/AdminMainController.js"></script>
 <script src="../Controller/DriverController.js"></script>
 <script src="../Controller/CarController.js"></script>
 </body>
