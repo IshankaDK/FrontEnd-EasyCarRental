@@ -18,15 +18,15 @@
             margin-right: 250px;
         }
 
-        #newRentFormLink, #rentalRequestLink, #viewCarLink, #loginLink , #logoutLink ,#registerLink{
+        #newRentFormLink, #rentalRequestLink, #viewCarLink, #loginLink, #logoutLink, #registerLink, #profileLink {
             margin-left: 30px;
             font-size: 20px;
             font-weight: 600;
         }
 
         #user {
-            margin-right: 10px;
-            margin-left: 55vw;
+            margin-right: 5px;
+            margin-left: 52vw;
         }
     </style>
 </head>
@@ -48,14 +48,18 @@
                     <a class="nav-link text-white" href="#rentalRequest" id="rentalRequestLink">Your Rental Requests</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" aria-current="page" id="registerLink" style="cursor: pointer">Register</a>
+                    <a class="nav-link text-white" aria-current="page" href="#customerRegistrationForm" id="registerLink" style="cursor: pointer">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" aria-current="page" href="#" id="profileLink" style="cursor: pointer">Profile</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" aria-current="page" data-bs-toggle="modal"
                        data-bs-target="#LoginModal" id="loginLink" style="cursor: pointer">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" aria-current="page" id="logoutLink" style="cursor: pointer">Logout</a>
+                    <a class="nav-link text-white" aria-current="page" id="logoutLink"
+                       style="cursor: pointer">Logout</a>
                 </li>
             </ul>
         </div>
@@ -87,19 +91,19 @@
         </div>
     </div>
 </div>
-
-<div class="container-fluid mt-2" id="newRentForm">
+<div class="container-fluid mt-3">
     <div class="d-flex">
         <h5 class="mx-3">
-            What kind of car are you looking for ?
+            Welcome To Easy Car Rental - Panadura
         </h5>
         <h5 id="user">
             User :
             <span id="userMail">Guest</span>
         </h5>
     </div>
-
-    <div class="row p-3">
+</div>
+<div class="container-fluid mt-1" id="newRentForm">
+        <div class="row p-3">
         <div class="col-xl-12 col-lg-12">
             <div class="bg-white card">
                 <div class="card-body bg-dark text-white">
@@ -245,6 +249,74 @@
 <div id="rentalRequest">
     NO Rent Request..
 </div>
+
+<div class="container-fluid mt-2" id="customerRegistrationForm">
+    <h1 class="mx-3" id="regH1">Registration Form</h1>
+    <div class="row mt-3 p-3">
+        <div class="col-xl-12 col-lg-6">
+            <div class="bg-white card">
+                <div class="card-body bg-dark text-white">
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-4">
+                            <lable>Email:</lable>
+                            <input type="text" id="txtCustomerEmail" class="form-control">
+                            <span class="control-error" id="lblEmail"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <lable>Address:</lable>
+                            <input type="text" id="txtCustomerAddress" class="form-control">
+                            <span class="control-error" id="lblcusaddress"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <lable>NIC Number:</lable>
+                            <input type="text" id="txtCustomerNIC" class="form-control">
+                            <span class="control-error" id="lblcusnic"></span>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-4">
+                            <lable>Driving License Number:</lable>
+                            <input type="text" id="txtCustomerDriveLicense" class="form-control">
+                            <span class="control-error" id="lbldriverlicense"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <lable>Contact Number:</lable>
+                            <input type="text" id="txtCustomerContact" class="form-control">
+                            <span class="control-error" id="lblContact"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <lable>Your Password:</lable>
+                            <input type="password" id="txtCustomerPassword" class="form-control">
+                            <span class="control-error" id="lblPass"></span>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-6">
+                            <label class="form-label" for="nic" id="nicLabel">Select Your NIC Card Image</label>
+                            <input class="form-control" id="nic" name="nic" type="file">
+                        </div>
+                        <div class="form-group col-6">
+                            <label class="form-label" for="license">Select Your Driving License Image</label>
+                            <input class="form-control" id="license" name="license" type="file">
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-3">
+                        <div class="form-group col-10">
+                        </div>
+                        <div class="form-group col-2">
+                            <button type="button" class="btn btn-success fw-bold " id="btnCustomerRegister">Register
+                            </button>
+                            <button type="button" class="btn btn-danger fw-bold " id="btnCancel">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="../assests/jquery-3.6.0.js"></script>
 <script src="../assests/bootsrap/js/bootstrap.min.js"></script>
 <script src="../Controller/RentController.js"></script>

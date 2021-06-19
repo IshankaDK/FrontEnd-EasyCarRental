@@ -63,6 +63,7 @@ function getAllCars() {
         }
     });
 }
+
 function getAllAvailableCars() {
     $.ajax({
         method: "GET",
@@ -336,7 +337,7 @@ function uploadLossDamageReceipt() {
     if (customerEmail !== "Guest") {
         const fileObject = $("#receipt")[0].files[0];//access file object from input field
         if (fileObject != null) {
-            const fileName = $("#receipt")[0].files[0].name; //get file name
+            const fileName = $("#userMail").text() +" - "+ $('#txtCarId').val();
             const data = new FormData();
             data.append("receipt", fileObject, fileName);
             $.ajax({
@@ -375,13 +376,22 @@ $('#btnLogin').click(function () {
             console.log(data);
             if (loginPassword === data.password) {
                 $('#userMail').text(data.email);
+                $("#txtCustomerEmail").val(data.email);
+                $("#txtCustomerAddress").val(data.address);
+                $("#txtCustomerNIC").val(data.nic);
+                $("#txtCustomerDriveLicense").val(data.driveLicense);
+                $("#txtCustomerContact").val(data.contact);
+                $("#txtCustomerPassword").val(data.password);
                 $('#LoginModal').modal('hide');
                 $('#loginLink').hide();
                 $('#logoutLink').show();
+                $('#registerLink').hide();
+                $('#profileLink').show();
                 getAllAvailableCars();
                 $('#newRentForm').show();
                 $('#viewCar').show();
                 $('#rentalRequest').hide();
+                $('#customerRegistrationForm').hide();
             } else {
                 alert("Wrong Email and Password..!");
             }
@@ -398,12 +408,15 @@ $('#logoutLink').click(function () {
     $('#logoutLink').hide();
     $('#txtLoginEmail').val("");
     $('#txtLoginPassword').val("");
+    $('#profileLink').hide();
+    $('#newRentForm').show();
 });
 
 $('#viewCarLink').click(function () {
     getAllCars();
     $('#newRentForm').hide();
     $('#rentalRequest').hide();
+    $('#customerRegistrationForm').hide();
     $('#viewCar').show();
 });
 
@@ -412,12 +425,155 @@ $('#newRentFormLink').click(function () {
     $('#newRentForm').show();
     $('#viewCar').show();
     $('#rentalRequest').hide();
+    $('#customerRegistrationForm').hide();
 });
 
 $('#rentalRequestLink').click(function () {
     $('#newRentForm').hide();
     $('#viewCar').hide();
     $('#rentalRequest').show();
+    $('#customerRegistrationForm').hide();
+});
+
+$('#registerLink').click(function () {
+    $('#newRentForm').hide();
+    $('#viewCar').hide();
+    $('#rentalRequest').hide();
+    $('#customerRegistrationForm').show();
 });
 
 $('#rentalRequest').hide();
+$('#customerRegistrationForm').hide();
+$('#profileLink').hide();
+
+$("#btnCustomerRegister").click(function () {
+    if ($("#btnCustomerRegister").text() === "Register") {
+        uploadNICAndLicense();
+    } else if ($("#btnCustomerRegister").text() === "Update") {
+        uploadLicenseOnly();
+    }
+});
+
+function updateCustomer() {
+    let email = $("#txtCustomerEmail").val();
+    let address = $("#txtCustomerAddress").val();
+    let nicNo = $("#txtCustomerNIC").val();
+    let driveLice = $("#txtCustomerDriveLicense").val();
+    let contact = $("#txtCustomerContact").val();
+    let pass = $("#txtCustomerPassword").val();
+
+    $.ajax({
+        method: "PUT",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer",
+        contentType: 'application/json',
+        async: true,
+        data: JSON.stringify({
+            email: email,
+            address: address,
+            nic: nicNo,
+            driveLicense: driveLice,
+            contact: contact,
+            password: pass
+        }),
+        success: function (data) {
+            console.log(data)
+            if (data) {
+                alert("Customer Updated")
+            }
+        }
+    });
+}
+function uploadLicenseOnly() {
+    var fileObject2 = $("#license")[0].files[0];
+    var fileName2 = $('#txtCustomerEmail').val() + " - license";
+
+    var data = new FormData();
+    data.append("license", fileObject2, fileName2); //append data
+    $.ajax({
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer",
+        method: 'PUT',
+        async: true,
+        processData: false, //stop processing data of request body
+        contentType: false, // stop setting content type by jQuery
+        data: data,
+        success: function (data) {
+            if (data) {
+                updateCustomer();
+            }
+        }
+    });
+}
+function saveCustomer() {
+    let email = $("#txtCustomerEmail").val();
+    let address = $("#txtCustomerAddress").val();
+    let nicNo = $("#txtCustomerNIC").val();
+    let driveLice = $("#txtCustomerDriveLicense").val();
+    let contact = $("#txtCustomerContact").val();
+    let pass = $("#txtCustomerPassword").val();
+
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer",
+        contentType: 'application/json',
+        async: true,
+        data: JSON.stringify({
+            email: email,
+            address: address,
+            nic: nicNo,
+            driveLicense: driveLice,
+            contact: contact,
+            password: pass
+        }),
+        success: function (data) {
+            console.log(data)
+            if (data) {
+                alert("Customer Saved and 2 files uploaded.")
+            }
+        }
+    });
+}
+
+function uploadNICAndLicense() {
+    var fileObject1 = $("#nic")[0].files[0];//access file object from input field
+    var fileName1 =$('#txtCustomerEmail').val() + " - nic";
+    var fileObject2 = $("#license")[0].files[0];
+    var fileName2 = $('#txtCustomerEmail').val() + " - license";
+
+    var data = new FormData();
+    data.append("nic", fileObject1, fileName1);
+    data.append("license", fileObject2, fileName2); //append data
+    $.ajax({
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer",
+        method: 'POST',
+        async: true,
+        processData: false, //stop processing data of request body
+        contentType: false, // stop setting content type by jQuery
+        data: data,
+        success: function (data) {
+            if (data) {
+                saveCustomer();
+            }
+        }
+    });
+}
+
+$("#btnCancel").click(function () {
+    $("#txtCustomerEmail").val("");
+    $("#txtCustomerAddress").val("");
+    $("#txtCustomerNIC").val("");
+    $("#txtCustomerDriveLicense").val("");
+    $("#txtCustomerContact").val("");
+    $("#txtCustomerPassword").val("");
+});
+
+$('#profileLink').click(function () {
+    $('#customerRegistrationForm').show();
+    $('#newRentForm').hide();
+    $('#rentalRequest').hide();
+    $('#viewCar').hide();
+    $('#regH1').text("Your Information");
+    $('#btnCustomerRegister').text("Update Information");
+    $('#nic').hide();
+    $('#nicLabel').hide();
+    $('#btnCancel').hide();
+});

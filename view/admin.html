@@ -42,7 +42,8 @@
                     <a class="nav-link text-white" href="#driverManageForm" id="driverManage">Driver Manage</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" aria-current="page" href="#rentRequestsFrom" id="rentRequests">Rent Requests</a>
+                    <a class="nav-link text-white" aria-current="page" href="#rentRequestsFrom" id="rentRequests">Rent
+                        Requests</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" aria-current="page" data-bs-toggle="modal"
@@ -179,9 +180,12 @@
                             </select>
                         </div>
                         <div class="form-group col-6 mt-4 px-4">
-                            <button type="button" class="btn btn-outline-success fw-bold" id="btnCarAdd">Add Car</button>
-                            <button type="button" class="btn btn-outline-warning fw-bold" id="btnCarUpdate">Update Car</button>
-                            <button type="button" class="btn btn-outline-danger fw-bold" id="btnCarDelete">Delete Car</button>
+                            <button type="button" class="btn btn-outline-success fw-bold" id="btnCarAdd">Add Car
+                            </button>
+                            <button type="button" class="btn btn-outline-warning fw-bold" id="btnCarUpdate">Update Car
+                            </button>
+                            <button type="button" class="btn btn-outline-danger fw-bold" id="btnCarDelete">Delete Car
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -201,9 +205,9 @@
             <th scope="col">Color</th>
             <th scope="col">Reg No</th>
             <th scope="col">Daily Rate</th>
-<!--            <th scope="col">Free KM Day</th>-->
+            <!--            <th scope="col">Free KM Day</th>-->
             <th scope="col">Monthly Rate</th>
-<!--            <th scope="col">Free KM Month</th>-->
+            <!--            <th scope="col">Free KM Month</th>-->
             <th scope="col">Cost Extra KM</th>
             <th scope="col">Loss Damage</th>
             <th scope="col">Status</th>
@@ -222,7 +226,7 @@
                 <div class="bg-dark card-header text-white" style="font-size: 25px">
                     Drivers' Information
                 </div>
-                <div class="card-body bg-white text-dark">
+                <div class="card-body bg-secondary text-dark">
                     <div class="row p-2 mt-3">
                         <div class="form-group col-6">
                             <lable>Driver ID:</lable>
@@ -259,11 +263,12 @@
                         </div>
                     </div>
                     <div class="row p-2 mt-3">
-                        <div class="form-group col-12">
-                            <button type="button" class="btn btn-outline-success fw-bold" id="btnDriverAdd">Add</button>
-                            <button type="button" class="btn btn-outline-warning fw-bold" id="btnDriverUpdate">UPDATE</button>
-                            <button type="button" class="btn btn-outline-danger fw-bold" id="btnDriverDelete">DELETE</button>
-                            <button type="button" class="btn btn-danger fw-bold" id="btnDriverCancel">Cancel</button>
+                        <div class="form-group col-12" style="margin-left: 150px">
+                            <button type="button" class="btn btn-success fw-bold" id="btnDriverAdd">ADD</button>
+                            <button type="button" class="btn btn-warning fw-bold" id="btnDriverUpdate">UPDATE
+                            </button>
+                            <button type="button" class="btn btn-danger fw-bold" id="btnDriverDelete">DELETE
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -290,8 +295,93 @@
     </div>
 </section>
 
-<section class="container-fluid" id="rentRequestsFrom">
-    rent req
+<section class="container-fluid mt-2" id="rentRequestsFrom">
+    <h3>Pending Rental Requests</h3>
+    <div class="row mt-2 p-2">
+        <div class="row col-xl-8 col-lg-6 ">
+            <table class="table table-hover border mt-2 p-3">
+                <thead class="bg-warning text-dark">
+                <tr>
+                    <th scope="col">Rent ID</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Car ID</th>
+                    <th scope="col">Driver</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col">Status</th>
+                </tr>
+                </thead>
+                <tbody class="bg-secondary text-white" id="tblPendingRequests">
+                </tbody>
+            </table>
+        </div>
+        <div class="row col-xl-4 col-lg-6 mx-1">
+            <div class="bg-white card">
+                <div class="bg-dark card-header text-white" style="font-size: 25px">
+                    Car Details
+                </div>
+                <div class="card-body bg-secondary text-white">
+                    <div class="row p-2 mt-2">
+                        <div class="form-group col-6 ">
+                            <lable>Rent ID:</lable>
+                            <input type="text" id="txtRentId0" class="form-control">
+                        </div>
+                        <div class="form-group col-6 ">
+                            <lable>Car ID:</lable>
+                            <input type="text" id="txtCarId0" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-2">
+                        <div class="form-group col-6 ">
+                            <lable>Customer Email:</lable>
+                            <input type="text" id="txtCustomerEmail0" class="form-control">
+                        </div>
+                        <div class="form-group col-6">
+                            <lable>Driver ID:</lable>
+                            <input type="text" id="txtDriverId0" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-2">
+                        <div class="form-group col-6">
+                            <lable>Start Date:</lable>
+                            <input type="text" id="txtStartDate0" class="form-control">
+                        </div>
+                        <div class="form-group col-6">
+                            <lable>End Date:</lable>
+                            <input type="text" id="txtEndDate0" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-2">
+                        <div class="form-group col-6">
+                            <lable>Duration:</lable>
+                            <input type="text" id="txtDuration0" class="form-control">
+                        </div>
+                        <div class="form-group col-6">
+                            <lable>Cost:</lable>
+                            <input type="text" id="txtCost0" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-2">
+                        <div class="form-group col-12">
+                            <lable>Deny Reason:</lable>
+                            <input type="text" id="txtDenyReason0" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-2">
+                        <div class="form-group col-8" style="margin-left: 160px">
+                            <button type="button" class="btn btn-success fw-bold" id="btnAccept">Accept Rent
+                            </button>
+                            <button type="button" class="btn btn-danger fw-bold" id="btnDeny">Deny Rent
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
 <script src="../assests/jquery-3.6.0.js"></script>
 <script src="../assests/bootsrap/js/bootstrap.min.js"></script>
