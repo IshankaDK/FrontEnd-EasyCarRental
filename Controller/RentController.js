@@ -74,6 +74,7 @@ function getAllAvailableCars() {
             loadAllCarsToTable(data);
             loadBrandCombo(data);
             loadCarIdCombo(data);
+            loadStaticCombo();
         }
     });
 }
@@ -295,7 +296,7 @@ $('#cmbCarType').on('change', function () {
     let carType = $("#cmbCarType :selected").text();
     $.ajax({
         method: "GET",
-        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?type=" + carType,
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?type=" + carType + "&status=Available",
         contentType: 'application/json',
         async: true,
         success: function (data) {
@@ -311,7 +312,7 @@ $('#cmbBrand').on('change', function () {
     let carBrand = $("#cmbBrand :selected").text();
     $.ajax({
         method: "GET",
-        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?brand=" + carBrand,
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?brand=" + carBrand +"&status=Available",
         contentType: 'application/json',
         async: true,
         success: function (data) {

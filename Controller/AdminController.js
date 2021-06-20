@@ -472,96 +472,255 @@ $('#btnAccept').click(function () {
     let customer;
     let driver;
 
-        $.ajax({
-            method: "GET",
-            url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?id=" + carId,
-            contentType: 'application/json',
-            async: true,
-            success: function (data) {
-                console.log(data);
-                car = data;
-                $.ajax({
-                    method: "GET",
-                    url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer?email=" + cusEmail,
-                    contentType: 'application/json',
-                    async: true,
-                    success: function (data) {
-                        console.log(data);
-                        customer = data;
-                        if (cmbId === "-Select Driver ID-") {
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?id=" + carId,
+        contentType: 'application/json',
+        async: true,
+        success: function (data) {
+            console.log(data);
+            car = data;
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer?email=" + cusEmail,
+                contentType: 'application/json',
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                    customer = data;
+                    if (cmbId === "-Select Driver ID-") {
+                        $.ajax({
+                            method: "GET",
+                            url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver?id=" + driverID,
+                            contentType: 'application/json',
+                            async: true,
+                            success: function (data) {
+                                console.log(data);
+                                driver = data;
+                                $.ajax({
+                                    method: "PUT",
+                                    url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
+                                    contentType: 'application/json',
+                                    async: true,
+                                    data: JSON.stringify({
+                                        rentId: rentId,
+                                        startDate: pickDate,
+                                        endDate: returnDate,
+                                        duration: duration,
+                                        monthRate: monthRate,
+                                        dayRate: dayRate,
+                                        cost: cost,
+                                        extraKM: 0,
+                                        status: "Accepted",
+                                        customerEmail: customer,
+                                        carId: car,
+                                        driverId: driver,
+                                    }),
+                                    success: function (data) {
+                                        console.log(data);
+                                        $.ajax({
+                                            method: "PUT",
+                                            url: "http://localhost:8080/EasyCarRental_war_exploded/api/car",
+                                            contentType: 'application/json',
+                                            async: true,
+                                            data: JSON.stringify({
+                                                carId: car.carId,
+                                                brand: car.brand,
+                                                carType: car.carType,
+                                                noOfPassengers: car.noOfPassengers,
+                                                transmissionType: car.transmissionType,
+                                                fuelType: car.fuelType,
+                                                color: car.color,
+                                                registrationNumber: car.registrationNumber,
+                                                dailyRate: car.dailyRate,
+                                                freeMileageForADay: car.freeMileageForADay,
+                                                monthlyRate: car.monthlyRate,
+                                                freeMileageForAMonth: car.freeMileageForAMonth,
+                                                priceForExtraKM: car.priceForExtraKM,
+                                                lossDamageWaiver: car.lossDamageWaiver,
+                                                status: "On Hire"
+                                            }),
+                                            success: function (data) {
+                                                console.log(data)
+                                                if (driverID !== "No_Driver"){
+                                                    $.ajax({
+                                                        method: "PUT",
+                                                        url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver",
+                                                        contentType: 'application/json',
+                                                        async: true,
+                                                        data: JSON.stringify({
+                                                            driverId: driver.driverId,
+                                                            driverName: driver.driverName,
+                                                            driverAddress: driver.driverAddress,
+                                                            driverContact: driver.driverContact,
+                                                            driverStatus: "On Hire"
+                                                        }),
+                                                        success: function (data) {
+                                                            console.log(data)
+                                                            getPendingRequests();
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            method: "GET",
+                            url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver?id=" + cmbId,
+                            contentType: 'application/json',
+                            async: true,
+                            success: function (data) {
+                                console.log(data);
+                                driver = data;
+                                $.ajax({
+                                    method: "PUT",
+                                    url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
+                                    contentType: 'application/json',
+                                    async: true,
+                                    data: JSON.stringify({
+                                        rentId: rentId,
+                                        startDate: pickDate,
+                                        endDate: returnDate,
+                                        duration: duration,
+                                        monthRate: monthRate,
+                                        dayRate: dayRate,
+                                        cost: cost,
+                                        extraKM: 0,
+                                        status: "Accepted",
+                                        customerEmail: customer,
+                                        carId: car,
+                                        driverId: driver,
+                                    }),
+                                    success: function (data) {
+                                        console.log(data);
+                                        $.ajax({
+                                            method: "PUT",
+                                            url: "http://localhost:8080/EasyCarRental_war_exploded/api/car",
+                                            contentType: 'application/json',
+                                            async: true,
+                                            data: JSON.stringify({
+                                                carId: car.carId,
+                                                brand: car.brand,
+                                                carType: car.carType,
+                                                noOfPassengers: car.noOfPassengers,
+                                                transmissionType: car.transmissionType,
+                                                fuelType: car.fuelType,
+                                                color: car.color,
+                                                registrationNumber: car.registrationNumber,
+                                                dailyRate: car.dailyRate,
+                                                freeMileageForADay: car.freeMileageForADay,
+                                                monthlyRate: car.monthlyRate,
+                                                freeMileageForAMonth: car.freeMileageForAMonth,
+                                                priceForExtraKM: car.priceForExtraKM,
+                                                lossDamageWaiver: car.lossDamageWaiver,
+                                                status: "On Hire"
+                                            }),
+                                            success: function (data) {
+                                                console.log(data)
+                                                $.ajax({
+                                                    method: "PUT",
+                                                    url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver",
+                                                    contentType: 'application/json',
+                                                    async: true,
+                                                    data: JSON.stringify({
+                                                        driverId: driver.driverId,
+                                                        driverName: driver.driverName,
+                                                        driverAddress: driver.driverAddress,
+                                                        driverContact: driver.driverContact,
+                                                        driverStatus: "On Hire"
+                                                    }),
+                                                    success: function (data) {
+                                                        console.log(data)
+                                                        getPendingRequests();
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                }
+            });
+        }
+    });
+});
+
+$('#btnDeny').click(function () {
+    let rentId = $("#txtRentId0").val();
+    let carId = $("#txtCarId0").val();
+    let cusEmail = $("#txtCustomerEmail0").val();
+    let driverID = $("#txtDriverId0").val();
+    let pickDate = $("#txtStartDate0").val();
+    let returnDate = $("#txtEndDate0").val();
+    let duration = $("#txtDuration0").val();
+    let cost = $("#txtCost0").val();
+    let dayRate = $("#txtDayRate0").val();
+    let monthRate = $("#txtMonthRate0").val();
+    let reason = $('#txtDenyReason0').val();
+
+    let car;
+    let customer;
+    let driver;
+
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?id=" + carId,
+        contentType: 'application/json',
+        async: true,
+        success: function (data) {
+            console.log(data);
+            car = data;
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer?email=" + cusEmail,
+                contentType: 'application/json',
+                async: true,
+                success: function (data) {
+                    console.log(data);
+                    customer = data;
+                    $.ajax({
+                        method: "GET",
+                        url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver?id=" + driverID,
+                        contentType: 'application/json',
+                        async: true,
+                        success: function (data) {
+                            console.log(data);
+                            driver = data;
                             $.ajax({
-                                method: "GET",
-                                url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver?id=" + driverID,
+                                method: "PUT",
+                                url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
                                 contentType: 'application/json',
                                 async: true,
+                                data: JSON.stringify({
+                                    rentId: rentId,
+                                    startDate: pickDate,
+                                    endDate: returnDate,
+                                    duration: duration,
+                                    monthRate: monthRate,
+                                    dayRate: dayRate,
+                                    cost: cost,
+                                    extraKM: 0,
+                                    status: "Denied :- " + reason,
+                                    customerEmail: customer,
+                                    carId: car,
+                                    driverId: driver,
+                                }),
                                 success: function (data) {
                                     console.log(data);
-                                    driver = data;
-                                    $.ajax({
-                                        method: "PUT",
-                                        url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
-                                        contentType: 'application/json',
-                                        async: true,
-                                        data: JSON.stringify({
-                                            rentId: rentId,
-                                            startDate: pickDate,
-                                            endDate: returnDate,
-                                            duration: duration,
-                                            monthRate: monthRate,
-                                            dayRate: dayRate,
-                                            cost: cost,
-                                            extraKM: 0,
-                                            status: "Accepted",
-                                            customerEmail: customer,
-                                            carId: car,
-                                            driverId: driver,
-                                        }),
-                                        success: function (data) {
-                                            console.log(data);
-                                            getPendingRequests();
-                                        }
-                                    });
-                                }
-                            });
-                        }else {
-                            $.ajax({
-                                method: "GET",
-                                url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver?id=" + cmbId,
-                                contentType: 'application/json',
-                                async: true,
-                                success: function (data) {
-                                    console.log(data);
-                                    driver = data;
-                                    $.ajax({
-                                        method: "PUT",
-                                        url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar",
-                                        contentType: 'application/json',
-                                        async: true,
-                                        data: JSON.stringify({
-                                            rentId: rentId,
-                                            startDate: pickDate,
-                                            endDate: returnDate,
-                                            duration: duration,
-                                            monthRate: monthRate,
-                                            dayRate: dayRate,
-                                            cost: cost,
-                                            extraKM: 0,
-                                            status: "Accepted",
-                                            customerEmail: customer,
-                                            carId: car,
-                                            driverId: driver,
-                                        }),
-                                        success: function (data) {
-                                            console.log(data);
-                                            getPendingRequests();
-                                        }
-                                    });
+                                    getPendingRequests();
                                 }
                             });
                         }
-
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
+    });
 });
