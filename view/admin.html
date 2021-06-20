@@ -310,7 +310,8 @@
                     <th scope="col">End Date</th>
                     <th scope="col">Duration</th>
                     <th scope="col">Cost</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Daily Rate</th>
+                    <th scope="col">Monthly Rate</th>
                 </tr>
                 </thead>
                 <tbody class="bg-secondary text-white" id="tblPendingRequests">
@@ -323,53 +324,70 @@
                     Car Details
                 </div>
                 <div class="card-body bg-secondary text-white">
-                    <div class="row p-2 mt-2">
+                    <div class="row p-2 mt-1">
                         <div class="form-group col-6 ">
                             <lable>Rent ID:</lable>
-                            <input type="text" id="txtRentId0" class="form-control">
+                            <input type="text" id="txtRentId0" class="form-control" disabled>
                         </div>
                         <div class="form-group col-6 ">
                             <lable>Car ID:</lable>
-                            <input type="text" id="txtCarId0" class="form-control">
+                            <input type="text" id="txtCarId0" class="form-control" disabled>
                         </div>
                     </div>
                     <div class="row p-2 mt-2">
                         <div class="form-group col-6 ">
                             <lable>Customer Email:</lable>
-                            <input type="text" id="txtCustomerEmail0" class="form-control">
+                            <input type="text" id="txtCustomerEmail0" class="form-control" disabled>
                         </div>
                         <div class="form-group col-6">
                             <lable>Driver ID:</lable>
-                            <input type="text" id="txtDriverId0" class="form-control">
+                            <input type="text" id="txtDriverId0" class="form-control" disabled>
                         </div>
                     </div>
-                    <div class="row p-2 mt-2">
+                    <div class="row p-2 mt-1">
                         <div class="form-group col-6">
                             <lable>Start Date:</lable>
-                            <input type="text" id="txtStartDate0" class="form-control">
+                            <input type="text" id="txtStartDate0" class="form-control" disabled>
                         </div>
                         <div class="form-group col-6">
                             <lable>End Date:</lable>
-                            <input type="text" id="txtEndDate0" class="form-control">
+                            <input type="text" id="txtEndDate0" class="form-control" disabled>
                         </div>
                     </div>
-                    <div class="row p-2 mt-2">
+                    <div class="row p-2 mt-1">
                         <div class="form-group col-6">
                             <lable>Duration:</lable>
-                            <input type="text" id="txtDuration0" class="form-control">
+                            <input type="text" id="txtDuration0" class="form-control" disabled>
                         </div>
                         <div class="form-group col-6">
                             <lable>Cost:</lable>
-                            <input type="text" id="txtCost0" class="form-control">
+                            <input type="text" id="txtCost0" class="form-control" disabled>
                         </div>
                     </div>
-                    <div class="row p-2 mt-2">
-                        <div class="form-group col-12">
+                    <div class="row p-2 mt-1">
+                        <div class="form-group col-6">
+                            <lable>Daily Rate:</lable>
+                            <input type="text" id="txtDayRate0" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-6">
+                            <lable>Monthly Rate:</lable>
+                            <input type="text" id="txtMonthRate0" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row p-2 mt-1">
+                        <div class="form-group col-6">
+                            <label> Select Another Driver:</label>
+                            <select class="form-control" id="cmbDriverId0">
+                                <option selected="selected" disabled="disabled">-Select Driver ID-</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-6">
                             <lable>Deny Reason:</lable>
                             <input type="text" id="txtDenyReason0" class="form-control">
                         </div>
                     </div>
-                    <div class="row p-2 mt-2">
+                    <div class="row p-2 mt-1">
                         <div class="form-group col-8" style="margin-left: 160px">
                             <button type="button" class="btn btn-success fw-bold" id="btnAccept">Accept Rent
                             </button>
@@ -386,7 +404,6 @@
 <script src="../assests/jquery-3.6.0.js"></script>
 <script src="../assests/bootsrap/js/bootstrap.min.js"></script>
 <script src="../Controller/AdminMainController.js"></script>
-<script src="../Controller/DriverController.js"></script>
-<script src="../Controller/CarController.js"></script>
+<script src="../Controller/AdminController.js"></script>
 </body>
 </html>
