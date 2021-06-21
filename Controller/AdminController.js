@@ -130,6 +130,7 @@ $("#btnCarDelete").click(function () {
     }
 });
 
+//Get All Cars
 function getAllCars() {
     $.ajax({
         method: "GET",
@@ -142,6 +143,7 @@ function getAllCars() {
     });
 }
 
+// load Cars to Table
 function loadAllCarsToTable(data) {
     let allCars = data;
     console.log(allCars);
@@ -163,34 +165,45 @@ function loadAllCarsToTable(data) {
 
 
         var row = `<tr><td>${carId}</td><td>${brand}</td><td>${carType}</td><td>${noOfPassengers}</td><td>${transmissionType}</td><td>${fuelType}</td><td>${color}</td><td>${registrationNumber}</td><td>${dailyRate}</td><td>${monthlyRate}</td><td>${priceForExtraKM}</td><td>${lossDamageWaiver}</td><td>${status}</td></tr>`;
-        // console.log(id);
         $('#tblCar').append(row);
     }
 
-    // // Table click Event
-    // $('#tblCar>tr').off('click');
-    // $('#tblCar>tr').click(function () {
-    //     let carId = $(this).children('td:eq(0)').text();
-    //     let brand = $(this).children('td:eq(1)').text();
-    //     let carType = $(this).children('td:eq(2)').text();
-    //     let transmissionType = $(this).children('td:eq(3)').text();
-    //     let fuelType = $(this).children('td:eq(4)').text();
-    //     let color = $(this).children('td:eq(5)').text();
-    //     let dailyRate = $(this).children('td:eq(6)').text();
-    //     let monthlyRate = $(this).children('td:eq(7)').text();
-    //     let priceForExtraKM = $(this).children('td:eq(8)').text();
-    //     let lossDamageWaiver = $(this).children('td:eq(9)').text();
-    //     let status = $(this).children('td:eq(10)').text();
-    //
-    //     $("#txtCarId").val(carId);
-    //     $("#txtBrand").val(brand);
-    //     $("#cmbCarType :selected").val(carType);
-    // $("#txtCustomerSalary0").val(salary);
-    // });
+    // Table click Event
+    $('#tblCar>tr').off('click');
+    $('#tblCar>tr').click(function () {
+        let carId = $(this).children('td:eq(0)').text();
+        let brand = $(this).children('td:eq(1)').text();
+        let carType = $(this).children('td:eq(2)').text();
+        let noOfPass = $(this).children('td:eq(3)').text();
+        let transType = $(this).children('td:eq(4)').text();
+        let fuelType = $(this).children('td:eq(5)').text();
+        let color = $(this).children('td:eq(6)').text();
+        let regNo = $(this).children('td:eq(7)').text();
+        let dailyRate = $(this).children('td:eq(8)').text();
+        let monthlyRate = $(this).children('td:eq(9)').text();
+        let priceForExtraKM = $(this).children('td:eq(10)').text();
+        let lossDamageWaiver = $(this).children('td:eq(11)').text();
+        let status = $(this).children('td:eq(12)').text();
+
+        $("#txtCarId").val(carId);
+        $("#txtBrand").val(brand);
+        $("#cmbCarType :selected").text(carType);
+        $("#cmbNoOfPassenger :selected").text(noOfPass);
+        $("#cmbTransmissionType :selected").text(transType);
+        $("#cmbFuelType :selected").text(fuelType);
+        $("#cmbLossDamage :selected").text(lossDamageWaiver);
+        $("#cmbCarStatus :selected").text(status);
+        $("#txtColor").val(color);
+        $("#txtRegNo").val(regNo);
+        $("#txtDailyRate").val(dailyRate);
+        $("#txtMonthlyRate").val(monthlyRate);
+        $("#txtCostForExtraKM").val(priceForExtraKM);
+    });
 }
 
 loadComboBoxes();
 
+// loading combo box in form
 function loadComboBoxes() {
     // Car Type
     $('#cmbCarType').children().remove();
@@ -247,6 +260,8 @@ $("#btnDriverAdd").click(function () {
     let driverName = $("#txtDriverName").val();
     let driverAddress = $("#txtDriverAddress").val();
     let driverContact = $("#txtDriverContact").val();
+    let driverEmail = $("#txtDriverEmail").val();
+    let driverPassword = $("#txtDriverPassword").val();
     let driverStatus = $("#cmbDriverStatus :selected").val();
 
     $.ajax({
@@ -259,14 +274,15 @@ $("#btnDriverAdd").click(function () {
             driverName: driverName,
             driverAddress: driverAddress,
             driverContact: driverContact,
-            driverStatus: driverStatus
+            driverStatus: driverStatus,
+            driverEmail: driverEmail,
+            driverPassword: driverPassword
         }),
         success: function (data) {
             console.log(data)
             if (data) {
                 alert("Driver Saved!");
                 getAllDrivers();
-
             } else {
                 alert("Saving Failed!");
             }
@@ -280,6 +296,8 @@ $("#btnDriverUpdate").click(function () {
     let driverName = $("#txtDriverName").val();
     let driverAddress = $("#txtDriverAddress").val();
     let driverContact = $("#txtDriverContact").val();
+    let driverEmail = $("#txtDriverEmail").val();
+    let driverPassword = $("#txtDriverPassword").val();
     let driverStatus = $("#cmbDriverStatus :selected").val();
 
     $.ajax({
@@ -292,7 +310,9 @@ $("#btnDriverUpdate").click(function () {
             driverName: driverName,
             driverAddress: driverAddress,
             driverContact: driverContact,
-            driverStatus: driverStatus
+            driverStatus: driverStatus,
+            driverEmail: driverEmail,
+            driverPassword: driverPassword
         }),
         success: function (data) {
             console.log(data)
@@ -307,6 +327,7 @@ $("#btnDriverUpdate").click(function () {
     });
 });
 
+// Driver Delete
 $("#btnDriverDelete").click(function () {
     let driverId = $("#txtDriverId").val();
 
@@ -330,6 +351,7 @@ $("#btnDriverDelete").click(function () {
         }
     });
 });
+
 loadDriverStatusCombo();
 
 function loadDriverStatusCombo() {
@@ -341,6 +363,7 @@ function loadDriverStatusCombo() {
     $('#cmbDriverStatus').append("<option>Not Available</option>");
 }
 
+// Get All Drivers
 function getAllDrivers() {
     $.ajax({
         method: "GET",
@@ -353,24 +376,45 @@ function getAllDrivers() {
     });
 }
 
+// load Drivers to Table
 function loadAllDriversToTable(data) {
     let allDrivers = data;
     console.log(allDrivers);
     $("#tblDriver").empty();
-    for (var i in allDrivers) {
-        let driverId = allDrivers[i].driverId;
-        let driverName = allDrivers[i].driverName;
-        let driverAddress = allDrivers[i].driverAddress;
-        let driverContact = allDrivers[i].driverContact;
-        let driverStatus = allDrivers[i].driverStatus;
+    for (let i in allDrivers) {
+        if (allDrivers[i].driverId !== "No_Driver"){
+            let driverId = allDrivers[i].driverId;
+            let driverName = allDrivers[i].driverName;
+            let driverAddress = allDrivers[i].driverAddress;
+            let driverContact = allDrivers[i].driverContact;
+            let driverStatus = allDrivers[i].driverStatus;
+            let driverEmail = allDrivers[i].driverEmail;
 
-        var row = `<tr><td>${driverId}</td><td>${driverName}</td><td>${driverAddress}</td><td>${driverContact}</td><td>${driverStatus}</td></tr>`;
-        $('#tblDriver').append(row);
+            let row = `<tr><td>${driverId}</td><td>${driverName}</td><td>${driverAddress}</td><td>${driverContact}</td><td>${driverStatus}</td><td>${driverEmail}</td></tr>`;
+            $('#tblDriver').append(row);
+        }
     }
+    $('#tblDriver>tr').off('click');
+    $('#tblDriver>tr').click(function () {
+        let driverId = $(this).children('td:eq(0)').text();
+        let driverName = $(this).children('td:eq(1)').text();
+        let driverAddress = $(this).children('td:eq(2)').text();
+        let driverContact = $(this).children('td:eq(3)').text();
+        let driverStatus = $(this).children('td:eq(4)').text();
+        let driverEmail= $(this).children('td:eq(5)').text();
+
+        $("#txtDriverId").val(driverId);
+        $("#txtDriverName").val(driverName);
+        $("#txtDriverAddress").val(driverAddress);
+        $("#txtDriverContact").val(driverContact);
+        $("#txtDriverEmail").val(driverEmail);
+        $("#cmbDriverStatus :selected").text(driverStatus);
+    });
 }
 
 getPendingRequests();
 
+// getting pending rental requests
 function getPendingRequests() {
     $.ajax({
         method: "GET",
@@ -383,6 +427,7 @@ function getPendingRequests() {
     });
 }
 
+// load pending rental requests to a table
 function loadAllPendingRequests(data) {
     let pendingReq = data;
     console.log(pendingReq);
@@ -396,7 +441,6 @@ function loadAllPendingRequests(data) {
         let end = pendingReq[i].endDate;
         let duration = pendingReq[i].duration;
         let cost = pendingReq[i].cost;
-        let status = pendingReq[i].status;
         let day = pendingReq[i].dayRate;
         let month = pendingReq[i].monthRate;
 
@@ -445,7 +489,7 @@ function loadAvailableDriverComboForPendingRequests() {
             $('#cmbDriverId0').children().remove();
             $('#cmbDriverId0').append("<option>-Select Driver ID-</option>");
             // $($('#cmbDriverId0').children().get(0)).attr('disabled', 'true');
-            for (var i in data) {
+            for (let i in data) {
                 let id = data[i].driverId;
                 $('#cmbDriverId0').append("<option>" + id + "</option>");
             }
@@ -453,6 +497,7 @@ function loadAvailableDriverComboForPendingRequests() {
     });
 }
 
+// request accept
 $('#btnAccept').click(function () {
     let rentId = $("#txtRentId0").val();
     let carId = $("#txtCarId0").val();
@@ -652,6 +697,7 @@ $('#btnAccept').click(function () {
     });
 });
 
+// request deny
 $('#btnDeny').click(function () {
     let rentId = $("#txtRentId0").val();
     let carId = $("#txtCarId0").val();

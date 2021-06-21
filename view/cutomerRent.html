@@ -18,7 +18,7 @@
             margin-right: 250px;
         }
 
-        #newRentFormLink, #rentalRequestLink, #viewCarLink, #loginLink, #logoutLink, #registerLink, #profileLink {
+        #newRentFormLink, #rentalRequestLink, #viewCarLink, #loginLink, #logoutLink, #registerLink, #profileLink, #viewSchedule {
             margin-left: 30px;
             font-size: 20px;
             font-weight: 600;
@@ -46,6 +46,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#rentalRequest" id="rentalRequestLink">Your Rental Requests</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#rentalRequest" id="viewSchedule">Your Work Schedule</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" aria-current="page" href="#customerRegistrationForm" id="registerLink" style="cursor: pointer">Register</a>
@@ -101,6 +104,7 @@
             <span id="userMail">Guest</span>
         </h5>
     </div>
+    <hr>
 </div>
 <div class="container-fluid mt-1" id="newRentForm">
         <div class="row p-3">
@@ -246,20 +250,102 @@
     </table>
 </div>
 
-<div id="rentalRequest" class="mt-2">
-    <table class="table table-hover border mt-3 p-3">
-        <thead class="bg-warning text-dark">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Brand</th>
-            <th scope="col">Car Type</th>
-            <th scope="col">Passengers</th>
-            <th scope="col">Trans Type</th>
-            <th scope="col">Fuel Type</th>
-        </tr>
-        </thead>
-        <tbody class="bg-secondary text-white" id="tblRentReq"></tbody>
-    </table>
+<div id="rentalRequest" class="container-fluid mt-2">
+    <h3>Your Rental Requests</h3>
+    <div class="row mt-2 p-2">
+        <div class="row col-xl-8 col-lg-6 ">
+            <table class="table table-hover border mt-2 p-3">
+                <thead class="bg-warning text-dark">
+                <tr>
+                    <th scope="col">Rent ID</th>
+                    <th scope="col">Car ID</th>
+                    <th scope="col">Driver</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">Cost</th>
+                    <th scope="col">Daily Rate</th>
+                    <th scope="col">Monthly Rate</th>
+                    <th scope="col">Status</th>
+                </tr>
+                </thead>
+                <tbody class="bg-secondary text-white" id="tblCustomerRequests">
+                </tbody>
+            </table>
+        </div>
+        <div class="row col-xl-4 col-lg-6 mx-1">
+            <div class="bg-white card">
+                <div class="card-body bg-secondary text-white">
+                    <div class="row p-2 mt-1">
+                        <div class="form-group col-6 ">
+                            <lable>Rent ID:</lable>
+                            <input type="text" id="txtRentId0" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-6 ">
+                            <lable>Car ID:</lable>
+                            <input type="text" id="txtCarId0" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-1">
+                        <div class="form-group col-6">
+                            <lable>Start Date:</lable>
+                            <input type="text" id="txtStartDate0" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-6">
+                            <lable>End Date:</lable>
+                            <input type="text" id="txtEndDate0" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-1">
+                        <div class="form-group col-6">
+                            <lable>Duration:</lable>
+                            <input type="text" id="txtDuration0" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-6">
+                            <lable>Cost:</lable>
+                            <input type="text" id="txtCost0" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-1">
+                        <div class="form-group col-6">
+                            <lable>Daily Rate:</lable>
+                            <input type="text" id="txtDayRate0" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-6">
+                            <lable>Monthly Rate:</lable>
+                            <input type="text" id="txtMonthRate0" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-1">
+                        <div class="form-group col-12">
+                            <lable>Status:</lable>
+                            <input type="text" id="txtStatus0" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-1">
+                        <div class="form-group col-6">
+                            <lable>Driver ID:</lable>
+                            <input type="text" id="txtDriverId0" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-6">
+                            <lable>Driver Name:</lable>
+                            <input type="text" id="txtDriverName0" class="form-control" disabled>
+                        </div>
+                    </div>
+                    <div class="row p-2 mt-1">
+                        <div class="form-group col-6">
+                            <lable>Driver Contact:</lable>
+                            <input type="text" id="txtDriverContact0" class="form-control" disabled>
+                        </div>
+                        <div class="form-group col-6 mt-4">
+                            <button type="button" class="btn btn-danger fw-bold" id="btnCancelReq">Cancel Request
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="container-fluid mt-2" id="customerRegistrationForm">
@@ -316,8 +402,7 @@
                         <div class="form-group col-10">
                         </div>
                         <div class="form-group col-2">
-                            <button type="button" class="btn btn-success fw-bold " id="btnCustomerRegister">Register
-                            </button>
+                            <button type="button" class="btn btn-success fw-bold " id="btnCustomerRegister">Register</button>
                             <button type="button" class="btn btn-danger fw-bold " id="btnCancel">
                                 Cancel
                             </button>
