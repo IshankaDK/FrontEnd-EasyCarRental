@@ -393,6 +393,7 @@ $('#btnLogin').click(function () {
                 $('#rentalRequest').hide();
                 $('#customerRegistrationForm').hide();
                 $('#viewSchedule').hide();
+                $('#driverSchedule').hide();
             } else {
                 $.ajax({
                     method: "GET",
@@ -408,13 +409,15 @@ $('#btnLogin').click(function () {
                             $('#logoutLink').show();
                             $('#registerLink').hide();
                             $('#profileLink').hide();
+                            $('#newRentForm').show();
                             $('#viewCar').show();
                             $('#rentalRequest').hide();
                             $('#customerRegistrationForm').hide();
                             $('#viewSchedule').show();
                             $('#rentalRequestLink').hide();
-                            $('#btnRent').attr('disabled','disabled');
-                        }else {
+                            $('#btnRent').attr('disabled', 'disabled');
+                            $('#driverSchedule').hide();
+                        } else {
                             alert("wrong Email and Password..!")
                         }
                     }
@@ -422,7 +425,6 @@ $('#btnLogin').click(function () {
             }
         }
     });
-
 });
 
 $('#logoutLink').click(function () {
@@ -440,6 +442,7 @@ $('#logoutLink').click(function () {
     $('#viewSchedule').hide();
     $('#rentalRequestLink').show();
     $('#btnRent').removeAttr('disabled');
+    $('#driverSchedule').hide();
 });
 
 $('#viewCarLink').click(function () {
@@ -448,6 +451,7 @@ $('#viewCarLink').click(function () {
     $('#rentalRequest').hide();
     $('#customerRegistrationForm').hide();
     $('#viewCar').show();
+    $('#driverSchedule').hide();
 });
 
 $('#newRentFormLink').click(function () {
@@ -456,6 +460,7 @@ $('#newRentFormLink').click(function () {
     $('#viewCar').show();
     $('#rentalRequest').hide();
     $('#customerRegistrationForm').hide();
+    $('#driverSchedule').hide();
 });
 
 $('#rentalRequestLink').click(function () {
@@ -464,6 +469,7 @@ $('#rentalRequestLink').click(function () {
     $('#rentalRequest').show();
     $('#customerRegistrationForm').hide();
     getRentRequests();
+    $('#driverSchedule').hide();
 });
 
 $('#registerLink').click(function () {
@@ -471,6 +477,29 @@ $('#registerLink').click(function () {
     $('#viewCar').hide();
     $('#rentalRequest').hide();
     $('#customerRegistrationForm').show();
+    $('#driverSchedule').hide();
+});
+
+$('#profileLink').click(function () {
+    $('#customerRegistrationForm').show();
+    $('#newRentForm').hide();
+    $('#rentalRequest').hide();
+    $('#viewCar').hide();
+    $('#regH1').text("Your Information");
+    $('#btnCustomerRegister').text("Update Information");
+    $('#nic').hide();
+    $('#nicLabel').hide();
+    $('#btnCancel').hide();
+});
+
+$('#viewSchedule').click(function () {
+    $('#newRentForm').hide();
+    $('#viewCar').hide();
+    $('#rentalRequest').hide();
+    $('#customerRegistrationForm').hide();
+    $('#driverSchedule').show();
+    getDriverSchedule();
+
 });
 
 $('#rentalRequest').hide();
@@ -478,6 +507,7 @@ $('#customerRegistrationForm').hide();
 $('#profileLink').hide();
 $('#logoutLink').hide();
 $('#viewSchedule').hide();
+$('#driverSchedule').hide();
 
 $("#btnCustomerRegister").click(function () {
     if ($("#btnCustomerRegister").text() === "Register") {
@@ -600,18 +630,6 @@ $("#btnCancel").click(function () {
     $("#txtCustomerDriveLicense").val("");
     $("#txtCustomerContact").val("");
     $("#txtCustomerPassword").val("");
-});
-
-$('#profileLink').click(function () {
-    $('#customerRegistrationForm').show();
-    $('#newRentForm').hide();
-    $('#rentalRequest').hide();
-    $('#viewCar').hide();
-    $('#regH1').text("Your Information");
-    $('#btnCustomerRegister').text("Update Information");
-    $('#nic').hide();
-    $('#nicLabel').hide();
-    $('#btnCancel').hide();
 });
 
 function getRentRequests() {
@@ -757,3 +775,41 @@ $('#btnCancelReq').click(function () {
         }
     });
 });
+
+function getDriverSchedule() {
+    let driverId = $('#userMail').text();
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar?id=" + driverId + "&status=Accepted",
+        contentType: 'application/json',
+        async: true,
+        success: function (data) {
+            console.log(data);
+            loadDriverSchedule(data);
+        }
+    });
+}
+
+function loadDriverSchedule(data) {
+    $("#tblDriverSchedule").empty();
+    for (let i in data) {
+        let carId = data[i].carId.carId;
+        let carType = data[i].carId.carType;
+        let carBrand = data[i].carId.brand;
+        let start = data[i].startDate
+        let end = data[i].endDate;
+        let duration = data[i].duration;
+        let months;
+        let days;
+        if (duration > 31) {
+            months =  Math.floor(duration/ 31);
+            days = duration % 31;
+        } else {
+            months = 0;
+            days=duration;
+        }
+
+        let row = `<tr><td>${carId}</td><td>${carType}</td><td>${carBrand}</td><td>${start}</td><td>${end}</td><td>${months}</td><td>${days}</td></tr>`;
+        $('#tblDriverSchedule').append(row);
+    }
+}
