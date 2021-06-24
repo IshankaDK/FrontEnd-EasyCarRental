@@ -382,7 +382,7 @@ function loadAllDriversToTable(data) {
     console.log(allDrivers);
     $("#tblDriver").empty();
     for (let i in allDrivers) {
-        if (allDrivers[i].driverId !== "No_Driver"){
+        if (allDrivers[i].driverId !== "No_Driver") {
             let driverId = allDrivers[i].driverId;
             let driverName = allDrivers[i].driverName;
             let driverAddress = allDrivers[i].driverAddress;
@@ -401,7 +401,7 @@ function loadAllDriversToTable(data) {
         let driverAddress = $(this).children('td:eq(2)').text();
         let driverContact = $(this).children('td:eq(3)').text();
         let driverStatus = $(this).children('td:eq(4)').text();
-        let driverEmail= $(this).children('td:eq(5)').text();
+        let driverEmail = $(this).children('td:eq(5)').text();
 
         $("#txtDriverId").val(driverId);
         $("#txtDriverName").val(driverName);
@@ -587,7 +587,7 @@ $('#btnAccept').click(function () {
                                             }),
                                             success: function (data) {
                                                 console.log(data)
-                                                if (driverID !== "No_Driver"){
+                                                if (driverID !== "No_Driver") {
                                                     $.ajax({
                                                         method: "PUT",
                                                         url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver",
@@ -770,3 +770,81 @@ $('#btnDeny').click(function () {
         }
     });
 });
+
+getDashBoardInfo();
+
+function getDashBoardInfo() {
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer",
+        contentType: 'application/json',
+        async: true,
+        success: function (data) {
+            $('#regUsers').text(data);
+        }
+    });
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?status=Available",
+        contentType: 'application/json',
+        async: true,
+        success: function (data) {
+            $("#availableCars").text(data.length);
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:8080/EasyCarRental_war_exploded/api/car",
+                contentType: 'application/json',
+                async: true,
+                success: function (allCar) {
+                    let reserved = allCar.length - data.length;
+                    $('#reservedCars').text(reserved);
+                }
+            });
+        }
+    });
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/rentcar?start=today&status=Accepted",
+        contentType: 'application/json',
+        async: true,
+        success: function (today) {
+            $('#todayBooking').text(today)
+        }
+    });
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver?status=Available",
+        contentType: 'application/json',
+        async: true,
+        success: function (data) {
+            $('#availableDriver').text(data.length);
+            $.ajax({
+                method: "GET",
+                url: "http://localhost:8080/EasyCarRental_war_exploded/api/driver",
+                contentType: 'application/json',
+                async: true,
+                success: function (allDrivers) {
+                    $('#occupiedDriver').text(allDrivers.length - data.length -1/*No_Driver*/);
+                }
+            });
+        }
+    });
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?status=Damaged",
+        contentType: 'application/json',
+        async: true,
+        success: function (damaged) {
+           $('#needMaintenance').text(damaged.length);
+        }
+    });
+    $.ajax({
+        method: "GET",
+        url: "http://localhost:8080/EasyCarRental_war_exploded/api/car?status=In Maintenance",
+        contentType: 'application/json',
+        async: true,
+        success: function (garage) {
+            $('#inMaintenance').text(garage.length);
+        }
+    });
+}
