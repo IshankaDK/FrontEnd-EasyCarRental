@@ -1,3 +1,4 @@
+
 $('#carManageForm').hide();
 $('#driverManageForm').hide();
 $('#rentRequestsFrom').hide();
@@ -23,7 +24,7 @@ $('#rentRequests').click(function () {
     $('#carManageForm').hide();
     $('#driverManageForm').hide();
     $('#rentRequestsFrom').show();
-    $('#dashboard').hide();
+    $('#dashboard').hide();s
     getPendingRequests();
 });
 

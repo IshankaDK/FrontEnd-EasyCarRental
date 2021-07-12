@@ -776,6 +776,7 @@ $('#btnDeny').click(function () {
 });
 
 // get DashBoard Info
+getDashBoardInfo();
 function getDashBoardInfo() {
     $.ajax({
         method: "GET",

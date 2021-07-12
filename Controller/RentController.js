@@ -513,7 +513,7 @@ $('#driverSchedule').hide();
 
 $("#btnCustomerRegister").click(function () {
     if ($("#btnCustomerRegister").text() === "Register") {
-        // console.log("abcd")
+        console.log("abcd")
         uploadNICAndLicense();
     } else if ($("#btnCustomerRegister").text() === "Update Information") {
         uploadLicenseOnly();
@@ -572,13 +572,14 @@ function uploadLicenseOnly() {
 }
 
 function saveCustomer() {
+    // console.log("awa")
     let email = $("#txtCustomerEmail").val();
     let address = $("#txtCustomerAddress").val();
     let nicNo = $("#txtCustomerNIC").val();
     let driveLice = $("#txtCustomerDriveLicense").val();
     let contact = $("#txtCustomerContact").val();
     let pass = $("#txtCustomerPassword").val();
-
+    // console.log(email)
     $.ajax({
         method: "POST",
         url: "http://localhost:8080/EasyCarRental_war_exploded/api/customer",
@@ -602,10 +603,14 @@ function saveCustomer() {
 }
 
 function uploadNICAndLicense() {
+    // console.log("upload")
     var fileObject1 = $("#nic")[0].files[0];//access file object from input field
     var fileName1 = $('#txtCustomerEmail').val() + " - nic";
     var fileObject2 = $("#license")[0].files[0];
     var fileName2 = $('#txtCustomerEmail').val() + " - license";
+
+    console.log(fileName1);
+    console.log(fileName2);
 
     var data = new FormData();
     data.append("nic", fileObject1, fileName1);
@@ -619,6 +624,7 @@ function uploadNICAndLicense() {
         data: data,
         success: function (data) {
             if (data) {
+                // console.log("done")
                 saveCustomer();
             }
         }
