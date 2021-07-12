@@ -33,10 +33,12 @@ function loadBrandCombo(data) {
     $('#cmbBrand').append("<option>-Select Car Brand-</option>");
     $($('#cmbBrand').children().get(0)).attr('disabled', 'true');
     let allCars = data;
-    for (var i in allCars) {
-        let brand = allCars[i].brand;
+    let brand;
+    for (let i in allCars) {
+        brand = allCars[i].brand;
         $('#cmbBrand').append("<option>" + brand + "</option>");
     }
+
 }
 
 function loadCarIdCombo(data) {
@@ -802,11 +804,11 @@ function loadDriverSchedule(data) {
         let months;
         let days;
         if (duration > 31) {
-            months =  Math.floor(duration/ 31);
+            months = Math.floor(duration / 31);
             days = duration % 31;
         } else {
             months = 0;
-            days=duration;
+            days = duration;
         }
 
         let row = `<tr><td>${carId}</td><td>${carType}</td><td>${carBrand}</td><td>${start}</td><td>${end}</td><td>${months}</td><td>${days}</td></tr>`;

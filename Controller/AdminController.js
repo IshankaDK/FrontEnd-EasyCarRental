@@ -598,6 +598,8 @@ $('#btnAccept').click(function () {
                                                             driverName: driver.driverName,
                                                             driverAddress: driver.driverAddress,
                                                             driverContact: driver.driverContact,
+                                                            driverEmail: driver.driverEmail,
+                                                            driverPassword: driver.driverPassword,
                                                             driverStatus: "On Hire"
                                                         }),
                                                         success: function (data) {
@@ -676,6 +678,8 @@ $('#btnAccept').click(function () {
                                                         driverName: driver.driverName,
                                                         driverAddress: driver.driverAddress,
                                                         driverContact: driver.driverContact,
+                                                        driverEmail: driver.driverEmail,
+                                                        driverPassword: driver.driverPassword,
                                                         driverStatus: "On Hire"
                                                     }),
                                                     success: function (data) {
@@ -771,8 +775,7 @@ $('#btnDeny').click(function () {
     });
 });
 
-getDashBoardInfo();
-
+// get DashBoard Info
 function getDashBoardInfo() {
     $.ajax({
         method: "GET",
@@ -824,7 +827,7 @@ function getDashBoardInfo() {
                 contentType: 'application/json',
                 async: true,
                 success: function (allDrivers) {
-                    $('#occupiedDriver').text(allDrivers.length - data.length -1/*No_Driver*/);
+                    $('#occupiedDriver').text(allDrivers.length - data.length - 1/*No_Driver*/);
                 }
             });
         }
@@ -835,7 +838,7 @@ function getDashBoardInfo() {
         contentType: 'application/json',
         async: true,
         success: function (damaged) {
-           $('#needMaintenance').text(damaged.length);
+            $('#needMaintenance').text(damaged.length);
         }
     });
     $.ajax({
